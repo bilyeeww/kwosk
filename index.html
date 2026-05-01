@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwosk — Brand Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1A1A;
+  --warm-white: #F5F2EE;
+  --red: #C41E2A;
+  --stone: #8C7B6B;
+  --dust: #D4CFC9;
+  --mid: #5A4F46;
+  --surface: #EDEAE6;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 220px;
+  height: 100vh;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 0.5px solid #333;
+}
+
+.sidebar-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  color: var(--warm-white);
+  font-weight: 500;
+}
+
+.sidebar-brand-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+  flex: 1;
+}
+
+.nav-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #444;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem 0.35rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-left: 2px solid transparent;
+  color: #888;
+  font-size: 12px;
+  user-select: none;
+}
+
+.nav-item:hover { background: #222; color: #ccc; }
+
+.nav-item.active {
+  background: #222;
+  color: var(--warm-white);
+  border-left-color: var(--red);
+}
+
+.nav-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #444;
+  min-width: 18px;
+}
+
+.nav-item.active .nav-num { color: var(--red); }
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 0.5px solid #333;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #444;
+  letter-spacing: 0.06em;
+}
+
+/* ── MAIN ── */
+.main {
+  margin-left: 220px;
+  min-height: 100vh;
+  padding: 3rem 3.5rem;
+  max-width: 900px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 0.5px solid var(--dust);
+  animation: fadeUp 0.4s ease both;
+}
+
+.page-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.page-desc {
+  font-size: 13px;
+  color: var(--stone);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* ── TAB CONTENT ── */
+.tab { display: none; animation: fadeUp 0.35s ease both; }
+.tab.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── COMPONENTS ── */
+.lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.card {
+  background: var(--white);
+  border: 0.5px solid var(--dust);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.card-dark {
+  background: var(--ink);
+  border: 0.5px solid #333;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+.sec { margin-bottom: 2.5rem; }
+.rule { border: none; border-top: 0.5px solid var(--dust); margin: 2rem 0; }
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 3px;
+  margin: 2px;
+  font-family: 'DM Mono', monospace;
+}
+.tag-ok { background: #eaf3de; color: #3B6D11; }
+.tag-no { background: #fcebeb; color: #A32D2D; }
+.tag-neu { background: var(--surface); color: var(--mid); }
+
+.big-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 1.5rem 0;
+  border-top: 0.5px solid var(--dust);
+  border-bottom: 0.5px solid var(--dust);
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--surface);
+}
+.row:last-child { border-bottom: none; }
+
+/* ── COLOR SWATCHES ── */
+.swatch-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+.swatch { }
+.swatch-color { height: 52px; border-radius: 6px; margin-bottom: 7px; }
+.swatch-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+.swatch-hex { font-size: 11px; color: var(--stone); font-family: 'DM Mono', monospace; }
+.swatch-role { font-size: 10px; color: var(--dust); font-family: 'DM Mono', monospace; }
+
+/* ── LOGO MOCKUPS ── */
+.logo-demo {
+  border-radius: 8px;
+  padding: 20px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.logo-symbol { width: 18px; height: 18px; border-radius: 2px; flex-shrink: 0; }
+.logo-wordmark { font-family: 'Cormorant Garamond', serif; font-size: 18px; letter-spacing: 0.16em; font-weight: 500; }
+
+/* ── CAPTION BOX ── */
+.caption-box {
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 10px 13px;
+  margin-top: 8px;
+}
+.caption-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.caption-text { font-size: 12px; color: var(--ink); line-height: 1.75; font-style: italic; }
+
+/* ── SHOT BOX ── */
+.shot-box {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 8px;
+}
+.num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  background: var(--ink);
+  color: var(--warm-white);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: 9px;
+}
+
+/* ── TIMELINE ── */
+.phase { margin-bottom: 2.5rem; }
+.phase-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1rem; }
+.phase-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--warm-white);
+  background: var(--ink);
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+.phase-num.red { background: var(--red); }
+.phase-num.stone { background: var(--stone); }
+.phase-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; flex: 1; }
+.phase-period { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); }
+.phase-goal { font-size: 12px; color: var(--stone); font-style: italic; margin-bottom: 1rem; padding-left: 44px; }
+
+.day-card {
+  background: var(--white);
+  border: 0.5px solid var(--dust);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+.day-card:hover { border-color: var(--stone); }
+.day-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.day-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.08em; min-width: 54px; flex-shrink: 0; }
+.day-title { font-size: 13px; font-weight: 500; flex: 1; }
+.day-platform { display: flex; gap: 4px; }
+.plt { font-size: 10px; padding: 1px 7px; border-radius: 3px; letter-spacing: 0.04em; background: var(--surface); color: var(--mid); font-family: 'DM Mono', monospace; }
+.plt.ig { background: #fce8ea; color: #8B1C24; }
+.plt.sh { background: #fff0e0; color: #8B5500; }
+.plt.xhs { background: #fce8e8; color: #8B1C1C; }
+.chevron { font-size: 9px; color: var(--dust); transition: transform 0.2s; }
+.chevron.open { transform: rotate(90deg); }
+.day-body { display: none; padding: 0 14px 14px; border-top: 0.5px solid var(--surface); }
+.day-body.open { display: block; }
+.day-body-inner { padding-top: 10px; display: grid; gap: 7px; }
+.task { display: flex; gap: 8px; align-items: flex-start; }
+.task-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--dust); margin-top: 5px; flex-shrink: 0; }
+.task-dot.red { background: var(--red); }
+.task-text { font-size: 12px; color: var(--mid); line-height: 1.65; }
+.task-text strong { color: var(--ink); font-weight: 500; }
+
+.tip-box {
+  background: #fff8f0;
+  border-left: 2px solid var(--red);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.7;
+}
+
+.summary-bar {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.sum-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--warm-white); font-weight: 500; line-height: 1; margin-bottom: 4px; }
+.sum-num span { color: var(--red); font-size: 22px; }
+.sum-lbl { font-size: 10px; color: var(--stone); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+
+/* ── INFLUENCER ── */
+.inf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+
+/* ── BRAND LANGUAGE TABLE ── */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.compare-cell {
+  padding: 9px 12px;
+  border-bottom: 0.5px solid var(--surface);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.compare-cell:nth-child(odd) { border-right: 0.5px solid var(--surface); }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; padding: 1rem; }
+  .sidebar-brand { border-bottom: none; padding: 0.5rem; }
+  .sidebar-nav { display: flex; flex-wrap: wrap; padding: 0; }
+  .nav-section-label { display: none; }
+  .nav-item { padding: 0.4rem 0.8rem; font-size: 11px; border-left: none; border-bottom: 2px solid transparent; }
+  .nav-item.active { border-bottom-color: var(--red); border-left: none; }
+  .main { margin-left: 0; padding: 1.5rem; }
+  .grid2, .grid3, .swatch-row, .inf-grid { grid-template-columns: 1fr; }
+  .compare-row { grid-template-columns: 1fr; }
+  .summary-bar { grid-template-columns: 1fr; }
+  .sidebar-footer { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-name">KWOSK</div>
+    <div class="sidebar-brand-sub">Brand Playbook</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">品牌基础</div>
+    <div class="nav-item active" onclick="switchTab('positioning')">
+      <span class="nav-num">01</span> 品牌定位
+    </div>
+    <div class="nav-item" onclick="switchTab('language')">
+      <span class="nav-num">02</span> 品牌语言
+    </div>
+    <div class="nav-item" onclick="switchTab('identity')">
+      <span class="nav-num">03</span> 视觉识别
+    </div>
+    <div class="nav-section-label">内容执行</div>
+    <div class="nav-item" onclick="switchTab('lookbook')">
+      <span class="nav-num">04</span> Lookbook 拍摄
+    </div>
+    <div class="nav-item" onclick="switchTab('influencer')">
+      <span class="nav-num">05</span> 博主策略
+    </div>
+    <div class="nav-section-label">发布计划</div>
+    <div class="nav-item" onclick="switchTab('timeline')">
+      <span class="nav-num">06</span> 发布时间线
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    穿得好，不需要人看出来。
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ── TAB 01: POSITIONING ── -->
+  <div class="tab active" id="tab-positioning">
+    <div class="page-header">
+      <div class="page-eyebrow">01 — 品牌定位</div>
+      <div class="page-title">Kwosk 是谁，<br>为谁而做。</div>
+      <div class="page-desc">品牌的骨架。所有决策——内容、定价、合作——都从这里出发。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">核心定位句</span>
+      <div class="big-quote">"穿得好，不需要人看出来。"</div>
+
+      <div class="grid2">
+        <div class="card">
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">品牌在说什么</div>
+          <div style="font-size:13px;line-height:1.7">自信不需要外部认证。质感是给自己的，不是表演给别人看的。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">目标客户心态</div>
+          <div style="font-size:13px;line-height:1.7">已经有自己审美，不需要被潮流牵着走的城市男性。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">产品定位</div>
+          <div style="font-size:13px;line-height:1.7">值得留下来的东西。300GSM，穿了会知道差别在哪里。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">品牌个性</div>
+          <div style="font-size:13px;line-height:1.7">内敛、有立场、不解释、不讨好。</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">为什么这个定位长远有利润</span>
+      <div class="card">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;text-align:center;padding:0.5rem 0">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--red)">身份</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:4px;line-height:1.6">卖的是认同感，<br>不是产品功能</div>
+          </div>
+          <div style="border-left:0.5px solid var(--dust);border-right:0.5px solid var(--dust)">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--red)">溢价</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:4px;line-height:1.6">身份认同品牌<br>支撑更高定价</div>
+          </div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--red)">忠诚</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:4px;line-height:1.6">认同你价值观的客户<br>不比价，不等促销</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">三个探索过的方向</span>
+      <div class="card" style="border-left:3px solid var(--red)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:13px;font-weight:500;margin-bottom:4px">方向 C — 反潮流基本款主义 ✓ 选定</div>
+            <div style="font-size:12px;color:var(--stone);line-height:1.65">"你不需要排队证明你有品味。" — 最贴近核心定位，骨气最强。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">方向 B — 城市上班族的场外衣橱</div>
+        <div style="font-size:12px;color:var(--stone);line-height:1.65">"下班后，才是你自己。" — 用作内容和 campaign 场景叙事，不作主定位。</div>
+      </div>
+      <div class="card" style="opacity:0.6">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">方向 A — 本地慢时尚（已排除）</div>
+        <div style="font-size:12px;color:var(--stone);line-height:1.65">"少买，买好。" — 需要更宽的产品线支撑，现阶段不适合。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 02: LANGUAGE ── -->
+  <div class="tab" id="tab-language">
+    <div class="page-header">
+      <div class="page-eyebrow">02 — 品牌语言</div>
+      <div class="page-title">怎么说话，<br>比说什么更重要。</div>
+      <div class="page-desc">每一句 caption、每一条 DM、每一个标题，都在建立品牌印象。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">说话方式</span>
+      <div class="card">
+        <div style="margin-bottom:1rem">
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">应该有的感觉</div>
+          <span class="tag tag-ok">简短有力</span>
+          <span class="tag tag-ok">不解释、不卖力</span>
+          <span class="tag tag-ok">有立场</span>
+          <span class="tag tag-ok">冷静的自信</span>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--stone);margin-bottom:6px">永远不要出现</div>
+          <span class="tag tag-no">感叹号</span>
+          <span class="tag tag-no">"超级""最好"</span>
+          <span class="tag tag-no">促销语气</span>
+          <span class="tag tag-no">过度解释功能</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">文案对比示例</span>
+      <div class="grid2">
+        <div class="card" style="border-top:2px solid #3B6D11">
+          <div style="font-size:10px;color:#3B6D11;letter-spacing:0.08em;font-family:'DM Mono',monospace;margin-bottom:10px">✓ KWOSK 的方式</div>
+          <div style="font-size:13px;line-height:2;color:var(--ink);font-style:italic">
+            "有些东西，穿过才懂。"<br>
+            "300GSM。你会感觉到差别。"<br>
+            "不是每个人都需要被看见。"<br>
+            "很快了。"
+          </div>
+        </div>
+        <div class="card" style="border-top:2px solid #A32D2D;opacity:0.7">
+          <div style="font-size:10px;color:#A32D2D;letter-spacing:0.08em;font-family:'DM Mono',monospace;margin-bottom:10px">✗ 不要这样写</div>
+          <div style="font-size:13px;line-height:2;color:var(--mid);font-style:italic;text-decoration:line-through">
+            "超舒适面料！穿上就爱上！"<br>
+            "最高质量的棉花！"<br>
+            "展示你的个性！让大家注意你！"<br>
+            "快来购买！！"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">Instagram Bio</span>
+      <div class="card-dark">
+        <div style="font-size:16px;letter-spacing:0.14em;color:var(--warm-white);font-family:'Cormorant Garamond',serif;font-weight:500;margin-bottom:8px">KWOSK</div>
+        <div style="font-size:13px;color:var(--dust);line-height:1.9">
+          穿得好，不需要人看出来。<br>
+          300GSM heavyweight tee. KL.<br>
+          ↓ 下单
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">两句话框架</span>
+      <div style="font-size:12px;color:var(--stone);margin-bottom:10px">所有内容、合作方向都从这两句话出发：</div>
+      <div class="card" style="border-left:3px solid var(--ink)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:6px">品牌说：<em>"穿得好，不需要人看出来。"</em></div>
+        <div style="font-size:12px;color:var(--stone)">用于：Logo 旁边、包装卡片、品牌介绍、任何正式场合</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--stone)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:6px">内容说：<em>"下班后，才是你自己。"</em></div>
+        <div style="font-size:12px;color:var(--stone)">用于：Reel 开场、博主 brief、campaign 主题、场景叙事</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 03: IDENTITY ── -->
+  <div class="tab" id="tab-identity">
+    <div class="page-header">
+      <div class="page-eyebrow">03 — 视觉识别</div>
+      <div class="page-title">颜色、字体、<br>Logo 使用规则。</div>
+      <div class="page-desc">视觉一致性是品牌积累的方式。每次出现都在加深印象。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">色彩系统</span>
+      <div class="card">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background:#1A1A1A"></div>
+            <div class="swatch-name">Ink Black</div>
+            <div class="swatch-hex">#1A1A1A</div>
+            <div class="swatch-role">Primary</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#F5F2EE;border:0.5px solid #E8E4DF"></div>
+            <div class="swatch-name">Warm White</div>
+            <div class="swatch-hex">#F5F2EE</div>
+            <div class="swatch-role">Background</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#C41E2A"></div>
+            <div class="swatch-name">Kwosk Red</div>
+            <div class="swatch-hex">#C41E2A</div>
+            <div class="swatch-role">Accent</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#8C7B6B"></div>
+            <div class="swatch-name">Warm Stone</div>
+            <div class="swatch-hex">#8C7B6B</div>
+            <div class="swatch-role">Secondary</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#D4CFC9"></div>
+            <div class="swatch-name">Dust</div>
+            <div class="swatch-hex">#D4CFC9</div>
+            <div class="swatch-role">Muted / Border</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--mid);line-height:1.7;border-top:0.5px solid var(--dust);padding-top:0.85rem">
+          红色保留但调深调暗 — 从鲜艳变沉稳。加入暖石色和米白底，整体不再冰冷。红色永远是点缀，不是主角。
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">字体系统</span>
+      <div class="grid2">
+        <div class="card">
+          <div style="font-size:10px;color:var(--stone);letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px">主字体 — 标题 / 品牌名</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;letter-spacing:0.12em;font-weight:500;margin-bottom:8px">KWOSK</div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:4px">Cormorant Garamond</div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.6">Serif，宽字距。Logo、大标题、campaign 主文。有质感不古板。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:10px;color:var(--stone);letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px">副字体 — 正文 / 标签</div>
+          <div style="font-size:22px;font-weight:400;letter-spacing:0.04em;margin-bottom:8px">穿得好。</div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:4px">DM Sans</div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.6">干净现代。Caption、产品说明、Instagram bio、Shopee 描述。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:10px;color:var(--stone);letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px">强调字 — 数字 / 规格</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;letter-spacing:0.15em;margin-bottom:8px">300 GSM</div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:4px">DM Mono</div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.6">用于重量、尺码、限量数字。工程感与质感并存。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:10px;color:var(--stone);letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px">字距规则</div>
+          <div class="row"><span style="color:var(--stone);font-size:12px">Logo / 品牌名</span><span style="font-family:'DM Mono',monospace;font-size:11px">0.16em</span></div>
+          <div class="row"><span style="color:var(--stone);font-size:12px">大标题</span><span style="font-family:'DM Mono',monospace;font-size:11px">0.06em</span></div>
+          <div class="row"><span style="color:var(--stone);font-size:12px">正文</span><span style="font-family:'DM Mono',monospace;font-size:11px">正常 / 0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">Logo 版本</span>
+      <div class="grid3">
+        <div class="card">
+          <div class="logo-demo" style="background:#1A1A1A">
+            <div class="logo-symbol" style="border:1.5px solid #C41E2A"></div>
+            <span class="logo-wordmark" style="color:#F5F2EE">KWOSK</span>
+          </div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:2px">深色底</div>
+          <div style="font-size:11px;color:var(--stone)">主要版本 — Instagram、包装</div>
+        </div>
+        <div class="card">
+          <div class="logo-demo" style="background:#F5F2EE;border:0.5px solid #E8E4DF">
+            <div class="logo-symbol" style="border:1.5px solid #C41E2A"></div>
+            <span class="logo-wordmark" style="color:#1A1A1A">KWOSK</span>
+          </div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:2px">浅色底</div>
+          <div style="font-size:11px;color:var(--stone)">印刷 / 标签 / Shopee</div>
+        </div>
+        <div class="card">
+          <div class="logo-demo" style="background:#C41E2A">
+            <div class="logo-symbol" style="border:1.5px solid #F5F2EE"></div>
+            <span class="logo-wordmark" style="color:#F5F2EE">KWOSK</span>
+          </div>
+          <div style="font-size:12px;font-weight:500;margin-bottom:2px">红底</div>
+          <div style="font-size:11px;color:var(--stone)">Campaign / 限定使用</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">使用规则</span>
+      <div class="card">
+        <div class="compare-row">
+          <div class="compare-cell" style="color:#3B6D11;font-size:11px;font-weight:500;letter-spacing:0.06em">✓ 可以做</div>
+          <div class="compare-cell" style="color:#A32D2D;font-size:11px;font-weight:500;letter-spacing:0.06em">✗ 不可以做</div>
+          <div class="compare-cell" style="color:var(--mid)">宽字距 logo</div>
+          <div class="compare-cell" style="color:var(--mid)">大面积鲜红色</div>
+          <div class="compare-cell" style="color:var(--mid)">暖白色作底</div>
+          <div class="compare-cell" style="color:var(--mid)">纯冷白底（太 sterile）</div>
+          <div class="compare-cell" style="color:var(--mid)">红色只用作点缀</div>
+          <div class="compare-cell" style="color:var(--mid)">超过3种字体混用</div>
+          <div class="compare-cell" style="color:var(--mid)">简短有力的文案</div>
+          <div class="compare-cell" style="color:var(--mid)">感叹号 / 促销语气</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 04: LOOKBOOK ── -->
+  <div class="tab" id="tab-lookbook">
+    <div class="page-header">
+      <div class="page-eyebrow">04 — Lookbook 拍摄</div>
+      <div class="page-title">安静、真实、<br>不刻意。</div>
+      <div class="page-desc">镜头里的人知道自己是谁，不需要表演。<br>参考词：quiet confidence · urban realism · film still</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">三个核心场景</span>
+      <div class="shot-box">
+        <div style="display:flex;align-items:flex-start;margin-bottom:10px">
+          <span class="num">1</span>
+          <div>
+            <div style="font-size:14px;font-weight:500">精品咖啡馆</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:2px">城市男性最自然的"自己时间"场景</div>
+          </div>
+        </div>
+        <div class="grid2" style="gap:8px">
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">拍什么</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">坐着看手机 / 端咖啡杯<br>望向窗外的侧脸<br>手放桌上的细节特写</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">光线</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">窗边自然光优先<br>早上9–11点最好<br>不要正午硬光</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-box">
+        <div style="display:flex;align-items:flex-start;margin-bottom:10px">
+          <span class="num">2</span>
+          <div>
+            <div style="font-size:14px;font-weight:500">城市建筑 / 停车场</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:2px">工业感背景衬出衣服质感</div>
+          </div>
+        </div>
+        <div class="grid2" style="gap:8px">
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">拍什么</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">靠墙站立、不看镜头<br>走路中途的抓拍感<br>手插裤袋、低头看地</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">光线</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">阴天散射光最稳定<br>黄昏前1小时也好<br>避开中午直射</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-box">
+        <div style="display:flex;align-items:flex-start;margin-bottom:10px">
+          <span class="num">3</span>
+          <div>
+            <div style="font-size:14px;font-weight:500">家居 / 室内极简空间</div>
+            <div style="font-size:12px;color:var(--stone);margin-top:2px">展示"私下的质感"，最贴近品牌定位</div>
+          </div>
+        </div>
+        <div class="grid2" style="gap:8px">
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">拍什么</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">坐在椅子上看书<br>整理衣领的细节<br>只拍下半身 + 地板</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:4px">背景</div>
+            <div style="font-size:12px;color:var(--mid);line-height:1.7">白墙 / 米色墙优先<br>背景越干净越好<br>避开杂乱家具</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">镜头角度</span>
+      <div class="card">
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">腰部以上 ¾ 侧身</div><div style="font-size:12px;color:var(--stone);margin-top:2px">最主力角度。展示版型和肩线。</div></div><span class="tag tag-ok">主力</span></div>
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">极近特写 — 面料 / 领口</div><div style="font-size:12px;color:var(--stone);margin-top:2px">300GSM 的质感要用镜头说话。拍到纹理。</div></div><span class="tag tag-ok">必拍</span></div>
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">全身正面 / 背面</div><div style="font-size:12px;color:var(--stone);margin-top:2px">清楚展示整体穿搭。背面能显版型落肩。</div></div><span class="tag tag-ok">必拍</span></div>
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">低角度往上拍</div><div style="font-size:12px;color:var(--stone);margin-top:2px">让人物更有分量感和气场。户外场景用。</div></div><span class="tag tag-ok">加分</span></div>
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">正面直视镜头</div><div style="font-size:12px;color:var(--stone);margin-top:2px">太像证件照，失去故事感。</div></div><span class="tag tag-no">少用</span></div>
+        <div class="row"><div style="flex:1"><div style="font-size:13px;font-weight:500">俯拍 / 过度仰拍</div><div style="font-size:12px;color:var(--stone);margin-top:2px">变形，不符合品牌沉稳气质。</div></div><span class="tag tag-no">避免</span></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">160cm 穿 Oversize 的拍摄技巧</span>
+      <div class="card" style="border-left:3px solid var(--red)">
+        <div style="font-size:13px;font-weight:500;margin-bottom:12px">身高从来不是问题，镜头语言才是。</div>
+        <div class="row"><span style="font-size:12px;color:var(--mid)">机位高度</span><span style="font-size:12px;font-weight:500">膝盖高度往上拍 — 最有气场</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--mid)">穿搭关键</span><span style="font-size:12px;font-weight:500">前摆轻微 tuck，修身直筒裤</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--mid)">取景建议</span><span style="font-size:12px;font-weight:500">腰部以上为主，不拍全身</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--mid)">姿势</span><span style="font-size:12px;font-weight:500">¾ 侧身，一手插袋，不看镜头</span></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">后期调色</span>
+      <div class="card">
+        <div class="grid2" style="gap:10px;margin-bottom:10px">
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:6px">目标感觉</div>
+            <span class="tag tag-ok">低饱和</span><span class="tag tag-ok">暖调底色</span><span class="tag tag-ok">Film grain</span><span class="tag tag-ok">轻微暗角</span>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--stone);margin-bottom:6px">避免</div>
+            <span class="tag tag-no">过度美白</span><span class="tag tag-no">高饱和滤镜</span><span class="tag tag-no">冷蓝色调</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--mid);line-height:1.7;border-top:0.5px solid var(--dust);padding-top:10px">
+          <strong>Lightroom 参考：</strong>高光 -20，阴影 +10，色调曲线偏暖，去饱和 -10 到 -15，颗粒感 +15–20。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 05: INFLUENCER ── -->
+  <div class="tab" id="tab-influencer">
+    <div class="page-header">
+      <div class="page-eyebrow">05 — 博主策略</div>
+      <div class="page-title">找对的人穿，<br>不是找多的人。</div>
+      <div class="page-desc">5个精准的博主，胜过50个不相关的。核心逻辑：免费送 + 专属 code = 可追踪的销售渠道。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">核心公式</span>
+      <div class="card-dark">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;text-align:center">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--warm-white)">免费送衣</div>
+            <div style="font-size:11px;color:var(--stone);margin-top:4px">成本：产品成本</div>
+          </div>
+          <div style="color:var(--red);font-size:20px">+</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--warm-white)">专属 Code</div>
+            <div style="font-size:11px;color:var(--stone);margin-top:4px">每人独立追踪</div>
+          </div>
+          <div style="color:var(--red);font-size:20px">=</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--warm-white)">数据筛选</div>
+            <div style="font-size:11px;color:var(--stone);margin-top:4px">谁真正带货</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">博主筛选标准</span>
+      <div class="grid2">
+        <div class="card" style="border-top:2px solid #3B6D11">
+          <div style="font-size:11px;color:#3B6D11;letter-spacing:0.08em;font-family:'DM Mono',monospace;margin-bottom:10px">找这种博主</div>
+          <div style="font-size:13px;line-height:2">穿搭低调有质感<br>内容有真实生活感<br>不靠大牌 logo 撑场面<br>文字有自己的想法<br>粉丝 3k–15k，互动真实</div>
+        </div>
+        <div class="card" style="border-top:2px solid #A32D2D">
+          <div style="font-size:11px;color:#A32D2D;letter-spacing:0.08em;font-family:'DM Mono',monospace;margin-bottom:10px">避开这种博主</div>
+          <div style="font-size:13px;line-height:2;color:var(--mid)">专拍大牌 flex 内容<br>每帖都是广告合作<br>风格太 hype / streetwear<br>互动都是 emoji，无真实留言<br>地区不在 KL / 大城市</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">DM 话术</span>
+      <div class="card">
+        <div class="caption-box" style="background:var(--surface)">
+          <div class="caption-label">第一次 DM — 参考框架</div>
+          <div class="caption-text">
+            "Hey [名字]，我们是 Kwosk，马来西亚本地男装品牌，主打 300GSM 重磅棉 T-shirt，给那些对细节有要求的人做的。<br><br>
+            看了你的穿搭，觉得风格很搭，想问你有没有兴趣收一件试穿？没有任何发帖要求，只是希望如果你穿了觉得好，愿意分享就好。<br><br>
+            会附上一个你专属的 code，你的 follower 用了会有折扣。"
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--stone);margin-top:10px">关键：说"没有强迫发帖"——反而让真心喜欢的人更愿意发。</div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">Promo Code 设置</span>
+      <div class="card">
+        <div class="row"><span style="font-size:12px;color:var(--stone)">格式</span><span style="font-family:'DM Mono',monospace;font-size:12px">KWOSK-[博主名缩写][折扣]</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--stone)">例子</span><span style="font-family:'DM Mono',monospace;font-size:12px">KWOSK-ADAM10 / KWOSK-RAFI15</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--stone)">折扣建议</span><span style="font-size:12px">RM10–15，不超过15%</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--stone)">追踪方式</span><span style="font-size:12px">Shopee 后台折扣码使用记录</span></div>
+        <div class="row"><span style="font-size:12px;color:var(--stone)">复盘时机</span><span style="font-size:12px">发布后 21 天，对比每个 code 数据</span></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">寄货包裹内容</span>
+      <div class="card">
+        <div style="display:grid;gap:8px">
+          <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>T-shirt</strong> — 折好放好，不要皱</div></div>
+          <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>手写感卡片</strong> — 品牌故事一句话，让人感觉是专门为他准备的</div></div>
+          <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>拍摄灵感参考</strong> — 2–3 张你希望他们呈现的 mood（不是强制，是给灵感）</div></div>
+          <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>专属 promo code 卡片</strong> — 清楚写明 follower 使用方式</div></div>
+        </div>
+        <div class="tip-box" style="margin-top:12px">寄出去的不只是 T-shirt，是你的品牌第一印象。包裹的质感直接影响博主愿不愿意拍。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 06: TIMELINE ── -->
+  <div class="tab" id="tab-timeline">
+    <div class="page-header">
+      <div class="page-eyebrow">06 — 发布时间线</div>
+      <div class="page-title">3 周，一次<br>集中爆发。</div>
+      <div class="page-desc">纹身图案系列。4款设计，同一时间发布。先铺垫悬念，再集中爆发。</div>
+    </div>
+
+    <div class="summary-bar">
+      <div><div class="sum-num">3<span>wks</span></div><div class="sum-lbl">总战线</div></div>
+      <div><div class="sum-num">4</div><div class="sum-lbl">设计发布</div></div>
+      <div><div class="sum-num">1</div><div class="sum-lbl">集中爆发点</div></div>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">W1</div>
+        <div class="phase-title">悬念期 — Teaser</div>
+        <div class="phase-period">第 1–7 天</div>
+      </div>
+      <div class="phase-goal">目标：让人知道有东西要来了，但不知道是什么。制造好奇，不泄底。</div>
+      <div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 01</div>
+            <div class="day-title">品牌重新亮相</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发黑底白字静态帖</strong>，只写一句话，不解释</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 参考</div><div class="caption-text">"有些东西，一直在皮肤下面。<br>很快了。"<br><br>#Kwosk #KwoskMY</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">更新 Instagram bio，加上倒数日期</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Shopee 设为"预购"状态，link 放 bio</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 03</div>
+            <div class="day-title">灵感来源故事</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发 Reel 或 Carousel</strong>：讲纹身图案的灵感故事。不 show 设计，show 灵感参考——老照片、纹身细节、手稿感素材</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 参考</div><div class="caption-text">"纹身是一种选择。你选择把什么带在身上，带一辈子。<br>我们把这个问题做成了衣服。<br><br>21 天后发布。"</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 加倒数贴纸，让 follower 设置提醒</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 05</div>
+            <div class="day-title">联系博主</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>DM 5–8 个目标博主</strong>，告知即将发布，询问是否有兴趣参与</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">记录每个博主回复状态，确认收货地址和尺码</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 07</div>
+            <div class="day-title">面料特写 + 工艺细节</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发 Reel</strong>：极近距离拍 300GSM 面料质感，不露图案，只拍手感和厚度</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 参考</div><div class="caption-text">"300GSM。<br>你会感觉到差别。<br><br>14 天后。"</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 做问答：「你觉得这个系列会是什么主题？」增加互动</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- WEEK 2 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num red">W2</div>
+        <div class="phase-title">预览期 — Design Reveal</div>
+        <div class="phase-period">第 8–14 天</div>
+      </div>
+      <div class="phase-goal">目标：逐一亮出4个设计，每个设计都有自己的故事。建立期待感。</div>
+      <div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 08</div>
+            <div class="day-title">设计 #1 亮相</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发静态帖或 Carousel</strong>：第一个设计完整图案 + 穿在身上的特写</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">给这个设计一个名字，讲图案背后的意思（1–2 句就够）</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 框架</div><div class="caption-text">"设计 01 / 04 — [设计名字]<br><br>[一句讲这个图案的故事]<br><br>发布日：[日期]。全系列 4 款，限量。"</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 加 Poll：「你会要这件吗？」简单收集意向</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 10</div>
+            <div class="day-title">设计 #2 亮相 + 寄货给博主</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text">同上格式，发第二个设计</div></div>
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>寄货给已确认的博主</strong>，附专属 promo code 卡片和拍摄灵感参考</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 更新倒数贴纸，剩余天数</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 12</div>
+            <div class="day-title">设计 #3 + #4 全系列揭晓</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text">同一天发两个设计，制造"全系列揭晓"感觉</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Carousel 把4个设计并排，让人一次看完整系列</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 参考</div><div class="caption-text">"4 款全出来了。<br>你要哪一件？<br><br>2 天后开放下单。限量各 [X] 件。"</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 14</div>
+            <div class="day-title">发布前最后预热</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发 Reel</strong>：你自己穿着系列 T-shirt 的 lookbook 画面</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 倒数 24 小时，加"提醒我"按钮</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">Story 透露 Shopee link，说"明天开放"</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">确认博主已收到货，提醒发布日期</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- WEEK 3 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num stone">W3</div>
+        <div class="phase-title">发布期 — Launch & Convert</div>
+        <div class="phase-period">第 15–21 天</div>
+      </div>
+      <div class="phase-goal">目标：集中爆发。所有渠道同步激活，博主同步发，你同步收割。</div>
+      <div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 15</div>
+            <div class="day-title">正式发布日 🔴</div>
+            <div class="day-platform"><span class="plt ig">IG</span><span class="plt sh">Shopee</span><span class="plt xhs">XHS</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>早上 9–10 点发主帖</strong>：全系列 4 款并排，Shopee link 在 bio</div></div>
+              <div class="caption-box"><div class="caption-label">Caption 参考</div><div class="caption-text">"穿得好，不需要人看出来。<br><br>Kwosk Tattoo Series — 现在开放。<br>4 款。限量各 [X] 件。300GSM. RM108.<br><br>Link in bio."</div></div>
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>Shopee 正式上架</strong>，图片、描述、价格全部就位</div></div>
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>博主同步发帖</strong>（提前协调好时间，最好同一天上午）</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">你的 Story 转发每一个博主的内容，加品牌框</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">XHS 同步发布，中文文案，附图</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 17</div>
+            <div class="day-title">库存提醒 + 买家内容</div>
+            <div class="day-platform"><span class="plt ig">IG</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发 Story</strong>：更新库存数字。"XX 件已售出，只剩 XX 件。"</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">如有买家收到货，转发他们的穿搭 Story（获授权后）</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">回复所有留言和 DM，互动率直接影响 IG 算法推送</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-card-header" onclick="toggleDay(this)">
+            <div class="day-label">DAY 21</div>
+            <div class="day-title">收关 + 复盘</div>
+            <div class="day-platform"><span class="plt ig">IG</span><span class="plt sh">Shopee</span></div>
+            <div class="chevron">▶</div>
+          </div>
+          <div class="day-body">
+            <div class="day-body-inner">
+              <div class="task"><div class="task-dot red"></div><div class="task-text"><strong>发最后一帖</strong>："感谢第一批支持 Kwosk 的人。" 真实、不煽情。</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">统计各博主 promo code 使用数，找出谁真正带货</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">记录：总销量、哪款卖最好、哪个渠道订单最多</div></div>
+              <div class="task"><div class="task-dot"></div><div class="task-text">对带货最好的1–2个博主，考虑长期合作或下次 drop 继续</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>最重要的一件事：</strong> Day 15 发布当天，你的 IG 帖子、博主帖子、Shopee 上架，三件事要同一天发生。这是整个三周铺垫的爆发点，不能错开。
+    </div>
+  </div>
+
+</main>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleDay(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
