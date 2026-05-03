@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwosk — Pre-Launch Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1A1A;
+  --warm-white: #F5F2EE;
+  --red: #C41E2A;
+  --stone: #8C7B6B;
+  --dust: #D4CFC9;
+  --mid: #5A4F46;
+  --surface: #EDEAE6;
+  --white: #ffffff;
+  --green: #3B6D11;
+  --green-bg: #eaf3de;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed; top: 0; left: 0;
+  width: 210px; height: 100vh;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  padding: 2rem 0; z-index: 100; overflow-y: auto;
+}
+.sidebar-brand { padding: 0 1.5rem 1.5rem; border-bottom: 0.5px solid #2a2a2a; }
+.brand-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; letter-spacing: 0.18em; color: var(--warm-white); font-weight: 500; }
+.brand-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+
+.progress-ring { padding: 1.25rem 1.5rem; border-bottom: 0.5px solid #2a2a2a; }
+.progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #555; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.progress-bar-bg { background: #2a2a2a; border-radius: 2px; height: 3px; }
+.progress-bar-fill { background: var(--red); height: 3px; border-radius: 2px; transition: width 0.4s ease; }
+.progress-pct { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--warm-white); margin-top: 5px; }
+
+.nav-section { padding: 0.75rem 0 0; }
+.nav-section-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #444; letter-spacing: 0.12em; text-transform: uppercase; padding: 0 1.5rem 0.3rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0.5rem 1.5rem; cursor: pointer;
+  transition: background 0.15s; border-left: 2px solid transparent;
+  color: #777; font-size: 12px; user-select: none;
+}
+.nav-item:hover { background: #1f1f1f; color: #bbb; }
+.nav-item.active { background: #1f1f1f; color: var(--warm-white); border-left-color: var(--red); }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: #333; flex-shrink: 0; transition: background 0.3s; }
+.nav-dot.done { background: var(--green); }
+.nav-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #444; min-width: 16px; }
+.nav-item.active .nav-num { color: var(--red); }
+
+.sidebar-footer { margin-top: auto; padding: 1rem 1.5rem; border-top: 0.5px solid #2a2a2a; font-family: 'DM Mono', monospace; font-size: 9px; color: #444; letter-spacing: 0.06em; line-height: 1.6; }
+
+/* MAIN */
+.main { margin-left: 210px; min-height: 100vh; padding: 3rem 3.5rem; max-width: 860px; }
+
+.tab { display: none; animation: fadeUp 0.3s ease both; }
+.tab.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--dust); }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.25; margin-bottom: 8px; }
+.page-desc { font-size: 12px; color: var(--stone); max-width: 480px; line-height: 1.75; }
+
+/* CHECKLIST */
+.check-section { margin-bottom: 2rem; }
+.check-section-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.section-badge { font-size: 10px; padding: 1px 8px; border-radius: 3px; background: var(--surface); color: var(--mid); font-family: 'DM Mono', monospace; }
+.section-badge.urgent { background: #fce8ea; color: var(--red); }
+
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px;
+  background: var(--white); border: 0.5px solid var(--dust);
+  border-radius: 8px; margin-bottom: 6px;
+  cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.check-item:hover { border-color: var(--stone); }
+.check-item.checked { background: #f9fdf6; border-color: #c3dba8; }
+
+.checkbox {
+  width: 18px; height: 18px; border-radius: 3px;
+  border: 1.5px solid var(--dust); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px; transition: all 0.2s;
+}
+.check-item.checked .checkbox { background: var(--green); border-color: var(--green); }
+.checkmark { color: white; font-size: 11px; opacity: 0; transition: opacity 0.2s; }
+.check-item.checked .checkmark { opacity: 1; }
+
+.check-content { flex: 1; }
+.check-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; transition: color 0.2s; }
+.check-item.checked .check-title { color: var(--stone); text-decoration: line-through; }
+.check-desc { font-size: 12px; color: var(--stone); line-height: 1.65; }
+.check-item.checked .check-desc { color: var(--dust); }
+
+.check-tag { font-family: 'DM Mono', monospace; font-size: 10px; padding: 1px 7px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; }
+.tag-must { background: #fce8ea; color: var(--red); }
+.tag-do { background: #eaf3de; color: var(--green); }
+.tag-opt { background: var(--surface); color: var(--mid); }
+
+/* CARDS */
+.card { background: var(--white); border: 0.5px solid var(--dust); border-radius: 10px; padding: 1.25rem; margin-bottom: 10px; }
+.card-dark { background: var(--ink); border: 0.5px solid #2a2a2a; border-radius: 10px; padding: 1.25rem; margin-bottom: 10px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rule { border: none; border-top: 0.5px solid var(--dust); margin: 2rem 0; }
+.lbl { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 10px; display: block; }
+.sec { margin-bottom: 2.5rem; }
+
+.tip-box { background: #fff8f0; border-left: 2px solid var(--red); border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: var(--mid); line-height: 1.75; }
+.info-box { background: #f0f4ff; border-left: 2px solid #5C7AEA; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: #2a3a6e; line-height: 1.75; }
+
+.budget-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 0.5px solid var(--surface); }
+.budget-row:last-child { border-bottom: none; }
+.budget-amount { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); }
+.budget-label { font-size: 12px; color: var(--mid); }
+.budget-desc { font-size: 11px; color: var(--stone); }
+
+.tag { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 3px; margin: 2px; font-family: 'DM Mono', monospace; }
+.tag-ok { background: var(--green-bg); color: var(--green); }
+.tag-no { background: #fcebeb; color: #A32D2D; }
+
+/* TRUST SIGNALS */
+.trust-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: var(--white); border: 0.5px solid var(--dust); border-radius: 8px; margin-bottom: 6px; }
+.trust-icon { width: 32px; height: 32px; border-radius: 6px; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.trust-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.trust-desc { font-size: 12px; color: var(--stone); line-height: 1.65; }
+
+/* AD SPLIT */
+.ad-card { background: var(--white); border: 0.5px solid var(--dust); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+.ad-card-top { padding: 12px 14px; border-bottom: 0.5px solid var(--surface); display: flex; align-items: center; justify-content: space-between; }
+.ad-platform { font-size: 13px; font-weight: 500; }
+.ad-amount { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--red); }
+.ad-body { padding: 12px 14px; }
+.ad-detail { font-size: 12px; color: var(--mid); line-height: 1.75; }
+.ad-why { font-size: 11px; color: var(--stone); margin-top: 6px; font-style: italic; }
+
+/* SHOPIFY */
+.step-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 0.5px solid var(--surface); }
+.step-row:last-child { border-bottom: none; }
+.step-num-box { width: 24px; height: 24px; background: var(--ink); color: var(--warm-white); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+.step-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.step-desc { font-size: 12px; color: var(--stone); line-height: 1.65; }
+
+@media (max-width: 700px) {
+  .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; flex-direction: row; flex-wrap: wrap; }
+  .sidebar-brand { padding: 0.5rem; border-bottom: none; }
+  .progress-ring { display: none; }
+  .sidebar-footer { display: none; }
+  .nav-section { display: flex; flex-wrap: wrap; padding: 0; }
+  .nav-section-label { display: none; }
+  .nav-item { padding: 0.4rem 0.75rem; font-size: 11px; border-left: none; border-bottom: 2px solid transparent; }
+  .nav-item.active { border-bottom-color: var(--red); border-left: none; }
+  .main { margin-left: 0; padding: 1.5rem; }
+  .grid2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">KWOSK</div>
+    <div class="brand-sub">Pre-Launch Prep</div>
+  </div>
+
+  <div class="progress-ring">
+    <div class="progress-label">完成进度</div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+    <div class="progress-pct" id="progressPct">0 / <span id="totalCount">0</span> 完成</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">准备工作</div>
+    <div class="nav-item active" onclick="switchTab('shopify')">
+      <span class="nav-num">01</span>
+      <div class="nav-dot" id="dot-shopify"></div>
+      Shopify 设置
+    </div>
+    <div class="nav-item" onclick="switchTab('trust')">
+      <span class="nav-num">02</span>
+      <div class="nav-dot" id="dot-trust"></div>
+      建立信任感
+    </div>
+    <div class="nav-item" onclick="switchTab('content')">
+      <span class="nav-num">03</span>
+      <div class="nav-dot" id="dot-content"></div>
+      内容就位
+    </div>
+    <div class="nav-item" onclick="switchTab('ads')">
+      <span class="nav-num">04</span>
+      <div class="nav-dot" id="dot-ads"></div>
+      广告投放
+    </div>
+    <div class="nav-item" onclick="switchTab('ops')">
+      <span class="nav-num">05</span>
+      <div class="nav-dot" id="dot-ops"></div>
+      运营后勤
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    勾选任务追踪进度。<br>进度会自动保存。
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- TAB 01: SHOPIFY -->
+  <div class="tab active" id="tab-shopify">
+    <div class="page-header">
+      <div class="eyebrow">01 — Shopify 设置</div>
+      <div class="page-title">你的店铺是<br>顾客下单的地方。</div>
+      <div class="page-desc">买家从博主或 Instagram 点进来，第一眼看到的就是你的 Shopify。专业度直接影响他们愿不愿意掏钱。</div>
+    </div>
+
+    <div class="check-section">
+      <div class="check-section-title">基本设置 <span class="section-badge urgent">必须完成</span></div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">自定义域名</div>
+          <div class="check-desc">用 kwosk.com 或 kwosk.my — 不要用默认的 myshopify.com。域名一年约 RM50，是最基本的专业度信号。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">品牌视觉对齐</div>
+          <div class="check-desc">Shopify 主题颜色、字体、Logo 要跟 Brand Playbook 一致。Ink Black 底，Warm White 文字，Kwosk Red 作点缀。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">产品页面完整度</div>
+          <div class="check-desc">每件 T-shirt 要有：多角度图片（最少5张）、详细尺码表、面料说明（300GSM，100% Cotton）、洗涤说明、预计发货时间。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">尺码对照表</div>
+          <div class="check-desc">马来西亚买家最怕买错尺码。做一张清楚的尺码表：S/M/L/XL 对应实际胸围、肩宽、衣长（cm）。放在每个产品页面。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">付款方式设置</div>
+          <div class="check-desc">开通 FPX（本地网银）+ 信用卡。可以用 Shopify Payments 或接 Billplz / iPay88。FPX 是马来西亚买家最常用的付款方式。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">运费设置</div>
+          <div class="check-desc">设定西马固定运费（建议 RM8–10）。可以考虑满 RM150 或 RM200 免运费，提高客单价。东马运费另设。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+    </div>
+
+    <div class="check-section">
+      <div class="check-section-title">转化率提升 <span class="section-badge">建议完成</span></div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">限量库存显示</div>
+          <div class="check-desc">在产品页面显示"只剩 X 件"。Shopify 可以设置当库存低于某数量时自动显示。制造真实的稀缺感。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">退换货政策页面</div>
+          <div class="check-desc">写清楚退换条件（例如：7天内未穿着可退换，附上单据）。有明确政策的店铺，买家下单信心更高。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">WhatsApp / 联络方式</div>
+          <div class="check-desc">放一个 WhatsApp 联络按钮或 email。马来西亚买家在付款前很可能想先问问题，有地方问 = 下单信心 +30%。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="shopify">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">Discount Code 功能</div>
+          <div class="check-desc">在 Shopify 后台建好每个博主的专属 code，测试确认可以使用。发布前全部 code 要测试过一遍。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>最重要一步：</strong>发布前自己用手机完整走一次购物流程，从点进产品页 → 加入购物车 → 结账 → 付款。任何卡顿都要在发布前修好。
+    </div>
+  </div>
+
+  <!-- TAB 02: TRUST -->
+  <div class="tab" id="tab-trust">
+    <div class="page-header">
+      <div class="eyebrow">02 — 建立信任感</div>
+      <div class="page-title">顾客不认识你，<br>凭什么给你钱？</div>
+      <div class="page-desc">新品牌最大的障碍是信任。不是价格，不是设计——是"这个品牌靠不靠谱"。以下是解决这个问题的方法。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">信任信号清单</span>
+
+      <div class="trust-item">
+        <div class="trust-icon">📦</div>
+        <div>
+          <div class="trust-title">开箱内容提前拍</div>
+          <div class="trust-desc">发布前拍一支 Reel：从收到包裹、开箱、摸面料、穿上身的完整过程。让买家提前"体验"收货感觉，消除不确定感。这是转化率最高的内容类型之一。</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">📏</div>
+        <div>
+          <div class="trust-title">真人试穿不同尺码</div>
+          <div class="trust-desc">拍不同体型的人穿同一款 T-shirt（不同尺码），让买家对号入座。你是 160cm，可以展示 oversize fit。如果能找一个 175cm 的朋友一起拍对比更好。</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">🧵</div>
+        <div>
+          <div class="trust-title">面料细节特写视频</div>
+          <div class="trust-desc">用手拉扯面料展示弹性和厚度。与普通 tee 做重量对比（放上秤）。300GSM 的卖点要让人"看到"和"感受到"，不能只靠文字说明。</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">✍️</div>
+        <div>
+          <div class="trust-title">创始人故事</div>
+          <div class="trust-desc">发布前1–2周，发一个 Story 或帖子讲你为什么做 Kwosk。不用长，3–4句就够。人们买品牌之前，先买创始人的故事。你的设计背景和对质感的坚持，本身就是说服力。</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">💬</div>
+        <div>
+          <div class="trust-title">提前收集反馈</div>
+          <div class="trust-desc">发布前把样品给3–5个朋友穿，请他们拍一张穿着照和写一句真实感想。发布日用这些真实反馈作为 social proof。不需要正式评价，朋友穿着的截图或引言就够。</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div>
+          <div class="trust-title">Shopify SSL + 安全标志</div>
+          <div class="trust-desc">确保你的 Shopify 域名有 https（SSL 证书）。在结账页面显示安全付款图标。马来西亚买家对网购安全意识越来越高，这些细节会影响他们敢不敢输入信用卡资料。</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">Instagram 账号本身的可信度</span>
+      <div class="card">
+        <div style="display:grid;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--surface)">
+            <div>
+              <div style="font-size:13px;font-weight:500">账号要有起码 9–12 帖内容</div>
+              <div style="font-size:12px;color:var(--stone)">发布日前，账号不能看起来刚开始。至少要有内容累积。</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--surface)">
+            <div>
+              <div style="font-size:13px;font-weight:500">Highlight 要设置好</div>
+              <div style="font-size:12px;color:var(--stone)">至少建 3 个 Highlights：产品、尺码参考、品牌故事。新访客第一件事就看这里。</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+            <div>
+              <div style="font-size:13px;font-weight:500">Bio 要有 Shopify link</div>
+              <div style="font-size:12px;color:var(--stone)">发布日把 bio link 换成 Shopify 产品页，不是首页。减少一个点击步骤。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 03: CONTENT -->
+  <div class="tab" id="tab-content">
+    <div class="page-header">
+      <div class="eyebrow">03 — 内容就位</div>
+      <div class="page-title">发布前，内容<br>要全部拍好。</div>
+      <div class="page-desc">发布期间你没有时间拍新内容。所有素材要在 Week 1 开始前全部准备好，发布时只需要点发布。</div>
+    </div>
+
+    <div class="check-section">
+      <div class="check-section-title">必备内容素材 <span class="section-badge urgent">发布前完成</span></div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">主 Campaign Reel（已有）</div>
+          <div class="check-desc">你已拍好的 campaign video — 这是发布日的主炮。确保剪辑、字幕、音乐版权都就位。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">4款设计的产品图（Shopify 用）</div>
+          <div class="check-desc">每款至少5张：正面、背面、侧面、面料特写、穿着效果。白底或品牌色底，干净清楚。这是买家决定下单的最直接视觉。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">Lookbook 照片（Instagram 帖用）</div>
+          <div class="check-desc">按照 Lookbook 拍摄指南，最少12张可用的静态照片，覆盖3周所有帖子用量。按照场景和角度分类存好。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">面料特写短片（15秒）</div>
+          <div class="check-desc">手摸面料、拉扯弹性、与薄 tee 重量对比。用于 Story 和 Reel。这是最能转化"犹豫中"的买家的内容。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">Teaser 图（黑底白字）</div>
+          <div class="check-desc">Day 1 发布用。简单的黑底白字静态图，配一句话。用 Canva 或你自己的设计工具做，10分钟可以搞定。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">全系列4款并排图</div>
+          <div class="check-desc">4款设计放在一张图里（Carousel 封面或单图）。发布日主帖和 Day 12 揭晓用。要有 Kwosk 品牌一致的视觉风格。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="content">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">博主 brief 文件</div>
+          <div class="check-desc">准备一份简单的 PDF 或图片：品牌定位一句话、希望传达的感觉、2–3张 mood 参考图。放进寄货包裹，也可以 DM 发给博主。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>内容批量拍摄建议：</strong>找一个周末，一次过拍完所有内容。准备好两套穿搭，去3个场景（咖啡馆 + 户外 + 室内），拍够3小时。比每次拍一点效率高很多，而且视觉风格更一致。
+    </div>
+  </div>
+
+  <!-- TAB 04: ADS -->
+  <div class="tab" id="tab-ads">
+    <div class="page-header">
+      <div class="eyebrow">04 — 广告投放</div>
+      <div class="page-title">RM100–300<br>怎么用最有效。</div>
+      <div class="page-desc">预算有限，必须精准。不要撒网，要用刀。现阶段博主 seeding 的效益比付费广告高，广告是辅助，不是主力。</div>
+    </div>
+
+    <div class="sec">
+      <span class="lbl">预算分配建议</span>
+      <div class="card-dark">
+        <div style="display:grid;gap:0">
+          <div class="budget-row">
+            <div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--stone);letter-spacing:0.08em;margin-bottom:2px">INSTAGRAM BOOST</div>
+              <div class="budget-label" style="color:#ccc">发布日帖子推广</div>
+              <div class="budget-desc">Day 15 发布帖，boost 3–5 天</div>
+            </div>
+            <div class="budget-amount">RM 100–150</div>
+          </div>
+          <div class="budget-row">
+            <div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--stone);letter-spacing:0.08em;margin-bottom:2px">INSTAGRAM STORY ADS</div>
+              <div class="budget-label" style="color:#ccc">库存提醒推广</div>
+              <div class="budget-desc">Day 17–19，配合"只剩 X 件"urgency</div>
+            </div>
+            <div class="budget-amount">RM 50–100</div>
+          </div>
+          <div class="budget-row" style="border-bottom:none">
+            <div>
+              <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--stone);letter-spacing:0.08em;margin-bottom:2px">RESERVE</div>
+              <div class="budget-label" style="color:#ccc">备用 / 加码效果好的帖</div>
+              <div class="budget-desc">哪个帖子反应最好，把剩余预算全压在那里</div>
+            </div>
+            <div class="budget-amount">RM 50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">Instagram Boost 怎么设置才有效</span>
+      <div class="card">
+        <div class="step-row">
+          <div class="step-num-box">1</div>
+          <div>
+            <div class="step-title">受众设置</div>
+            <div class="step-desc">不要用"自动受众"。手动设置：马来西亚、男性、18–35岁、兴趣标签选 menswear / streetwear / lifestyle / coffee。</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">2</div>
+          <div>
+            <div class="step-title">目标选"访问网站"</div>
+            <div class="step-desc">不要选"更多帖子互动"（会得到很多 like 但不会去买）。选"访问网站"直接导流到你的 Shopify 产品页。</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">3</div>
+          <div>
+            <div class="step-title">用最好的内容去 boost</div>
+            <div class="step-desc">不要 boost 普通帖子。等发布后看哪个帖子的自然互动最好，把预算押在那里。一般等 6–12 小时看数据再决定。</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">4</div>
+          <div>
+            <div class="step-title">Reel 优先于静态帖</div>
+            <div class="step-desc">Instagram 算法现在大幅偏向 Reel。同样预算，boost Reel 的触达人数比静态帖高 2–3 倍。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">现阶段不建议做的广告</span>
+      <div class="card">
+        <div style="display:grid;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--surface)">
+            <span style="color:#A32D2D;font-size:14px;flex-shrink:0">✗</span>
+            <div>
+              <div style="font-size:13px;font-weight:500">Facebook 广告（Meta Ads Manager）</div>
+              <div style="font-size:12px;color:var(--stone)">设置复杂，学习曲线高，RM300 以下预算效益低。等品牌有一定数据积累再考虑。</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--surface)">
+            <span style="color:#A32D2D;font-size:14px;flex-shrink:0">✗</span>
+            <div>
+              <div style="font-size:13px;font-weight:500">Google 搜索广告</div>
+              <div style="font-size:12px;color:var(--stone)">没有人在 Google 搜索你的品牌名，搜索广告现阶段完全没有意义。</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0">
+            <span style="color:#A32D2D;font-size:14px;flex-shrink:0">✗</span>
+            <div>
+              <div style="font-size:13px;font-weight:500">付费博主发帖（付现金）</div>
+              <div style="font-size:12px;color:var(--stone)">现阶段用免费送货换内容，效益比付钱高。付费合作等第一波数据出来，找到真正带货的博主后再谈。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>广告的本质：</strong>RM100–300 的预算，博主 seeding 带来的真实口碑，效益远高于付费广告。广告是用来放大已经有效的内容，不是用来替代有机增长。先让内容自然跑，有效果了再加钱。
+    </div>
+  </div>
+
+  <!-- TAB 05: OPS -->
+  <div class="tab" id="tab-ops">
+    <div class="page-header">
+      <div class="eyebrow">05 — 运营后勤</div>
+      <div class="page-title">发布那天，<br>后台要零故障。</div>
+      <div class="page-desc">顾客下单了，后面发生什么决定他会不会再买。把这些准备好，发布日才能专心在内容上。</div>
+    </div>
+
+    <div class="check-section">
+      <div class="check-section-title">库存 + 包装 <span class="section-badge urgent">发布前必须就位</span></div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">确认库存数量</div>
+          <div class="check-desc">4款设计各备多少件？在 Shopify 设置真实库存数字。建议首批每款 20–30 件，不要过多积压资金，也不要太少无法制造稀缺感。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">包装材料就位</div>
+          <div class="check-desc">纸袋或盒子、防水袋（雨季必备）、品牌贴纸或 hang tag、手写感感谢卡。包装是"开箱体验"的一部分，也是买家会不会拍照分享的关键。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">快递合作确认</div>
+          <div class="check-desc">确认用哪家快递（J&T / Poslaju / Shopee Xpress）。了解取件时间和费用。Shopify 可以接 EasyParcel 一键比价出单，省很多时间。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">发货时间承诺</div>
+          <div class="check-desc">在 Shopify 产品页面清楚写明：下单后几个工作天发货。建议承诺 2–3 个工作天，实际尽量在 1 天内发出。超出承诺 = 差评，提前发出 = 惊喜。</div>
+        </div>
+        <span class="check-tag tag-must">必须</span>
+      </div>
+    </div>
+
+    <div class="check-section">
+      <div class="check-section-title">顾客体验 <span class="section-badge">建议完成</span></div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">自动确认邮件设置</div>
+          <div class="check-desc">Shopify 自动发送的订单确认邮件，把内容改成 Kwosk 的语气和品牌风格。不要用默认模板，这是顾客收到的第一封邮件。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">包裹里放感谢卡</div>
+          <div class="check-desc">简单一张卡，写上定位句 + 一句真诚的感谢。可以加上"拍照 tag 我们得到 RM15 下次购物折扣"——鼓励 UGC 内容。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)" data-section="ops">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="check-content">
+          <div class="check-title">WhatsApp 快速回复模板</div>
+          <div class="check-desc">准备3–5个常见问题的标准回答（尺码、发货时间、退换货）。发布日询问量会暴增，有模板才不会手忙脚乱。</div>
+        </div>
+        <span class="check-tag tag-do">建议</span>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec">
+      <span class="lbl">发布日 Checklist（Day 15 当天）</span>
+      <div class="card-dark">
+        <div style="display:grid;gap:6px;padding:4px 0">
+          <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:0.5px solid #2a2a2a">
+            <span style="color:var(--red);font-family:'DM Mono',monospace;font-size:11px;flex-shrink:0">09:00</span>
+            <span style="font-size:12px;color:#ccc">Instagram 主帖发出，Shopify 产品页确认上架</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:0.5px solid #2a2a2a">
+            <span style="color:var(--red);font-family:'DM Mono',monospace;font-size:11px;flex-shrink:0">09:30</span>
+            <span style="font-size:12px;color:#ccc">确认博主已发帖，转发到你的 Story</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:0.5px solid #2a2a2a">
+            <span style="color:var(--red);font-family:'DM Mono',monospace;font-size:11px;flex-shrink:0">10:00</span>
+            <span style="font-size:12px;color:#ccc">XHS 同步发布，中文文案</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:0.5px solid #2a2a2a">
+            <span style="color:var(--red);font-family:'DM Mono',monospace;font-size:11px;flex-shrink:0">全天</span>
+            <span style="font-size:12px;color:#ccc">回复所有 DM、留言、WhatsApp 询问，在1小时内回复</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:7px 0">
+            <span style="color:var(--red);font-family:'DM Mono',monospace;font-size:11px;flex-shrink:0">晚上</span>
+            <span style="font-size:12px;color:#ccc">Instagram boost 开始投放，Story 更新今日已售数量</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>发布日最重要的工作不是内容——是回复。</strong>每一个问问题的人都是潜在买家。发布日第一时间回复所有询问，转化率可以提高50%以上。把这一天空出来，不要安排其他事情。
+    </div>
+  </div>
+
+</main>
+
+<script>
+const state = JSON.parse(localStorage.getItem('kwoskPreLaunch') || '{}');
+
+function toggle(el) {
+  el.classList.toggle('checked');
+  const id = el.dataset.section + '-' + Array.from(el.parentNode.children).indexOf(el);
+  state[id] = el.classList.contains('checked');
+  localStorage.setItem('kwoskPreLaunch', JSON.stringify(state));
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.check-item');
+  const done = document.querySelectorAll('.check-item.checked');
+  const pct = Math.round((done.length / all.length) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = done.length + ' / ';
+  document.getElementById('totalCount').textContent = all.length + ' 完成';
+
+  // Update nav dots
+  ['shopify','trust','content','ads','ops'].forEach(sec => {
+    const items = document.querySelectorAll(`[data-section="${sec}"]`);
+    const doneSec = document.querySelectorAll(`[data-section="${sec}"].checked`);
+    const dot = document.getElementById('dot-' + sec);
+    if (dot) dot.classList.toggle('done', doneSec.length === items.length && items.length > 0);
+  });
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Restore state
+window.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.check-item');
+  items.forEach((el, i) => {
+    const id = el.dataset.section + '-' + Array.from(el.parentNode.children).indexOf(el);
+    if (state[id]) el.classList.add('checked');
+  });
+  updateProgress();
+});
+</script>
+</body>
+</html>
