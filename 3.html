@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwosk — 每日运营系统</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ed;
+    --warm-mid: #e8e3db;
+    --muted: #7a7570;
+    --hint: #b0aaa3;
+    --red: #C41E2A;
+    --red-dim: rgba(196,30,42,0.08);
+    --green: #1a6b3c;
+    --green-dim: rgba(26,107,60,0.08);
+    --blue: #1a4a7a;
+    --blue-dim: rgba(26,74,122,0.08);
+    --amber: #7a4e1a;
+    --amber-dim: rgba(122,78,26,0.08);
+    --purple: #4a2a7a;
+    --purple-dim: rgba(74,42,122,0.08);
+    --gray-dim: rgba(90,85,80,0.06);
+    --border: rgba(15,14,13,0.1);
+    --border-med: rgba(15,14,13,0.16);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border-med);
+    padding: 2.5rem 3rem 2rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .brand-lockup { display: flex; flex-direction: column; gap: 4px; }
+
+  .brand-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.8rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .brand-name span { color: var(--red); }
+
+  .brand-sub {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.65rem;
+    color: var(--hint);
+    letter-spacing: 0.06em;
+    line-height: 1.9;
+  }
+
+  /* ── NAV PILLS ── */
+  .nav-strip {
+    display: flex;
+    gap: 6px;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.68rem;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border-med);
+    border-radius: 2px;
+    padding: 5px 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .nav-pill:hover, .nav-pill.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 3rem 6rem;
+  }
+
+  section {
+    margin-bottom: 4rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--hint);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── TIME BLOCKS ── */
+  .time-blocks { display: flex; flex-direction: column; gap: 2px; }
+
+  .time-block {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .time-block:hover { box-shadow: 0 2px 12px rgba(15,14,13,0.08); }
+
+  .time-slot {
+    background: var(--warm-mid);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .time-range {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .time-duration {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.6rem;
+    color: var(--hint);
+    margin-top: 3px;
+  }
+
+  .time-content {
+    padding: 1rem 1.5rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .block-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 2px;
+    width: fit-content;
+  }
+
+  .tag-ops { background: var(--green-dim); color: var(--green); }
+  .tag-content { background: var(--blue-dim); color: var(--blue); }
+  .tag-biz { background: var(--amber-dim); color: var(--amber); }
+  .tag-brand { background: var(--purple-dim); color: var(--purple); }
+  .tag-rest { background: var(--gray-dim); color: var(--muted); }
+
+  .block-title {
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .block-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── WEEK GRID ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .day-card {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    background: white;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .day-card:hover { box-shadow: 0 2px 12px rgba(15,14,13,0.08); }
+  .day-card.is-post { border-color: rgba(26,74,122,0.3); }
+  .day-card.is-review { border-color: rgba(196,30,42,0.3); }
+
+  .day-header {
+    padding: 8px 10px 6px;
+    background: var(--warm-mid);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .day-name {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .day-badge {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.55rem;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  .badge-post { background: var(--blue-dim); color: var(--blue); }
+  .badge-review { background: var(--red-dim); color: var(--red); }
+  .badge-shoot { background: var(--amber-dim); color: var(--amber); }
+
+  .day-tasks {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .day-task {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-left: 8px;
+    border-left: 2px solid var(--border);
+  }
+
+  .task-ops { border-left-color: #1a6b3c; }
+  .task-content { border-left-color: #1a4a7a; }
+  .task-biz { border-left-color: #7a4e1a; }
+  .task-brand { border-left-color: #4a2a7a; }
+  .task-rest { border-left-color: var(--hint); }
+
+  /* ── SUNDAY REVIEW ── */
+  .review-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .review-card {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem 1.25rem;
+    background: white;
+  }
+
+  .review-card-title {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .review-card-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── RULES ── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .rule-card {
+    border-radius: 3px;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid transparent;
+  }
+
+  .rule-card.warn { background: var(--red-dim); border-left-color: var(--red); }
+  .rule-card.good { background: var(--green-dim); border-left-color: var(--green); }
+
+  .rule-title {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  .rule-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── BIZ DEV ROTATION ── */
+  .rotation-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .rotation-item {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: white;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .rotation-freq {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--hint);
+  }
+
+  .rotation-title {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .rotation-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── PHILOSOPHY QUOTE ── */
+  .philosophy {
+    border-top: 1px solid var(--border-med);
+    border-bottom: 1px solid var(--border-med);
+    padding: 2.5rem 0;
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  .philosophy-cn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+
+  .philosophy-en {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--hint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .philosophy-accent {
+    width: 32px;
+    height: 2px;
+    background: var(--red);
+    margin: 1.25rem auto 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.65rem;
+    color: var(--hint);
+    letter-spacing: 0.06em;
+  }
+
+  footer strong { color: var(--muted); font-weight: 500; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section:nth-child(1) { animation-delay: 0.1s; }
+  section:nth-child(2) { animation-delay: 0.2s; }
+  section:nth-child(3) { animation-delay: 0.3s; }
+  section:nth-child(4) { animation-delay: 0.4s; }
+  section:nth-child(5) { animation-delay: 0.5s; }
+  section:nth-child(6) { animation-delay: 0.6s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    header, .nav-strip, main, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .review-grid, .rules-grid { grid-template-columns: 1fr; }
+    .rotation-list { grid-template-columns: 1fr 1fr; }
+    .time-block { grid-template-columns: 90px 1fr; }
+    .brand-name { font-size: 2rem; }
+  }
+
+  @media (max-width: 560px) {
+    .week-grid { grid-template-columns: 1fr 1fr; }
+    .rotation-list { grid-template-columns: 1fr; }
+    .time-block { grid-template-columns: 1fr; }
+    .time-slot { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  @media print {
+    .nav-strip { display: none; }
+    section { break-inside: avoid; }
+    .time-block:hover, .day-card:hover { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-lockup">
+    <div class="brand-name">Kwosk<span>.</span></div>
+    <div class="brand-sub">全职创业者每日运营系统</div>
+  </div>
+  <div class="header-meta">
+    <div>独立品牌创办人</div>
+    <div>城市男装 · 马来西亚</div>
+    <div>2026年6月版</div>
+  </div>
+</header>
+
+<nav class="nav-strip">
+  <a class="nav-pill" href="#daily">每日时间块</a>
+  <a class="nav-pill" href="#weekly">每周节奏</a>
+  <a class="nav-pill" href="#bizdev">业务发展轮换</a>
+  <a class="nav-pill" href="#sunday">周日复盘</a>
+  <a class="nav-pill" href="#rules">运营原则</a>
+</nav>
+
+<main>
+
+  <!-- PHILOSOPHY -->
+  <div class="philosophy">
+    <div class="philosophy-cn">穿得好，不需要人看出来</div>
+    <div class="philosophy-en">Dress well without needing others to notice</div>
+    <div class="philosophy-accent"></div>
+  </div>
+
+  <!-- SECTION 1: DAILY BLOCKS -->
+  <section id="daily">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">每日时间块</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="time-blocks">
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">8:00<br>9:00</div>
+          <div class="time-duration">1小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-ops">运营</span>
+          <div class="block-title">早晨运营检查</div>
+          <div class="block-desc">立即处理所有订单，不能拖延。回复每一条私信和评论。检查 Shopify 数据：访问量、链接点击数、加购数。有任何值得记录的事情，用一句话记下来再继续。</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">9:00<br>12:00</div>
+          <div class="time-duration">3小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-content">内容</span>
+          <div class="block-title">内容创作时间块</div>
+          <div class="block-desc">你精力最旺盛的时间用在这里。拍摄、剪辑、写文案、排期发布。完整的 Reel 需要 2–3 小时。Stories 只需 15 分钟。拍摄日：这个时间块延伸到下午。非拍摄日：用于批量剪辑和下一期内容脚本。这是你的主要工作，像对待正职一样认真对待。</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">12:00<br>1:00</div>
+          <div class="time-duration">1小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-rest">休息</span>
+          <div class="block-title">午餐 — 不碰屏幕</div>
+          <div class="block-desc">不可妥协。独立运营的创意耗竭是业务风险，不是个人偏好。无例外，保护这个时间块。</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">1:00<br>3:00</div>
+          <div class="time-duration">2小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-biz">业务</span>
+          <div class="block-title">业务发展时间块</div>
+          <div class="block-desc">每日轮换：联系供应商、达人跟进、concept store 调研、同行品牌互动、小红书内容、补货规划、成本核算。这是大多数独立创业者最容易跳过的时间块。Kwosk 第二年能否撑下去，答案就在这两小时里。不要跳过。</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">3:00<br>5:00</div>
+          <div class="time-duration">2小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-brand">品牌</span>
+          <div class="block-title">品牌与设计时间块</div>
+          <div class="block-desc">下一季设计构思。品牌手册更新。案例记录。竞品与市场调研。小红书内容（如果业务时间块未完成）。不紧急，但会在18个月内持续复利。</div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time-slot">
+          <div class="time-range">5:00<br>6:00</div>
+          <div class="time-duration">1小时</div>
+        </div>
+        <div class="time-content">
+          <span class="block-tag tag-ops">运营</span>
+          <div class="block-title">每日收尾</div>
+          <div class="block-desc">最后一次扫私信和评论。确认已排期的内容正常发布。记录当天日志——最多一段话：今天发生了什么、还有什么待处理、明天需要跟进什么。之后关上电脑。</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: WEEKLY RHYTHM -->
+  <section id="weekly">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">每周节奏</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="week-grid">
+
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">周一</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-biz">定下本周3个优先事项</div>
+          <div class="day-task task-content">写周二 Reel 脚本并准备素材</div>
+          <div class="day-task task-biz">跟进供应商或达人</div>
+          <div class="day-task task-brand">回顾上周数据</div>
+        </div>
+      </div>
+
+      <div class="day-card is-post">
+        <div class="day-header">
+          <span class="day-name">周二</span>
+          <span class="day-badge badge-post">发帖 晚8点</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-content">晚8点发布 Reel</div>
+          <div class="day-task task-ops">监测帖子表现</div>
+          <div class="day-task task-content">拍摄或剪辑周四 Reel</div>
+          <div class="day-task task-ops">当天回复所有评论</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">周三</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-biz">业务发展重点日</div>
+          <div class="day-task task-brand">拜访或调研选品店</div>
+          <div class="day-task task-brand">下一季设计构思</div>
+          <div class="day-task task-content">完成周四 Reel 剪辑</div>
+        </div>
+      </div>
+
+      <div class="day-card is-post">
+        <div class="day-header">
+          <span class="day-name">周四</span>
+          <span class="day-badge badge-post">发帖 晚8点</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-content">晚8点发布 Reel</div>
+          <div class="day-task task-brand">小红书内容草稿或转发</div>
+          <div class="day-task task-biz">同行品牌互动</div>
+          <div class="day-task task-ops">回复评论互动</div>
+        </div>
+      </div>
+
+      <div class="day-card is-post">
+        <div class="day-header">
+          <span class="day-name">周五</span>
+          <span class="day-badge badge-post">发帖 晚8点</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-content">晚8点发布 Reel</div>
+          <div class="day-task task-ops">监测并回复评论</div>
+          <div class="day-task task-content">规划下周内容</div>
+          <div class="day-task task-biz">如有需要跟进达人</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">周六</span>
+          <span class="day-badge badge-shoot">拍摄日</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-content">批量拍摄：3–4条原素材</div>
+          <div class="day-task task-brand">逛市集或寻找合作机会</div>
+          <div class="day-task task-rest">下午半天 — 保护家庭时间</div>
+        </div>
+      </div>
+
+      <div class="day-card is-review">
+        <div class="day-header">
+          <span class="day-name">周日</span>
+          <span class="day-badge badge-review">复盘</span>
+        </div>
+        <div class="day-tasks">
+          <div class="day-task task-ops">每周复盘 — 45分钟</div>
+          <div class="day-task task-ops">更新数据追踪表格</div>
+          <div class="day-task task-content">晚8点前发布 Story</div>
+          <div class="day-task task-rest">复盘后下午2点完全休息</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: BUSINESS DEV ROTATION -->
+  <section id="bizdev">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">业务发展轮换清单</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="rotation-list">
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每日</div>
+        <div class="rotation-title">订单处理</div>
+        <div class="rotation-desc">当天收到当天处理，无例外。一次延迟发货就是一次品牌体验的失败。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每日</div>
+        <div class="rotation-title">社群互动回复</div>
+        <div class="rotation-desc">每一条私信，每一条评论。你就是自己的客服团队。回复速度体现品牌性格。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每周</div>
+        <div class="rotation-title">竞品观察</div>
+        <div class="rotation-desc">最多10分钟。关注2–3个马来西亚男装品牌——发了什么、哪些内容有互动、定价多少。不是为了模仿，是为了保持市场感知。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每周</div>
+        <div class="rotation-title">达人管理</div>
+        <div class="rotation-desc">检查5位达人的进度。跟进还没发帖的人。识别1–2位下一轮的潜在新达人。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每月</div>
+        <div class="rotation-title">供应商维系</div>
+        <div class="rotation-desc">即使不需要补货也要联系。询问新面料到货、价格变化、起订量更新。供应商优先照顾经常联系的买家。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每月</div>
+        <div class="rotation-title">同行品牌互动</div>
+        <div class="rotation-desc">给另一位本地品牌创办人发一条真诚的消息。不是要求什么，只是认可对方。这个网络日后会演变成联名、互推和选品店机会。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每月</div>
+        <div class="rotation-title">数据复盘</div>
+        <div class="rotation-desc">单件成本、扣除费用后的毛利、哪款设计卖得最好、哪个达人折扣码有转化。花30分钟在数据追踪表上。数据告诉你哪里值得加倍投入。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">每季</div>
+        <div class="rotation-title">选品店实地拜访</div>
+        <div class="rotation-desc">先以顾客身份进去，买件小东西。了解他们选品的逻辑和标准。等你真正去推 Kwosk 的时候，你不是陌生人。</div>
+      </div>
+
+      <div class="rotation-item">
+        <div class="rotation-freq">持续进行</div>
+        <div class="rotation-title">案例记录</div>
+        <div class="rotation-desc">每次有重要进展就记录下来。一段话，注明日期。供应商报价、拜访店铺、设计决策、达人回复——这些是你的品牌故事。现在记，不是18个月后凭记忆重建。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: SUNDAY REVIEW -->
+  <section id="sunday">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">周日复盘 — 45分钟</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="review-grid">
+
+      <div class="review-card">
+        <div class="review-card-title">销售与收入</div>
+        <div class="review-card-desc">本周订单数。哪款设计。哪个尺码。用了哪个达人折扣码。累计总数对比目标。数字在往前走还是卡住了？</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card-title">内容表现</div>
+        <div class="review-card-desc">哪条 Reel 的收藏数高而不只是播放量。有没有评论透露出真实的购买意图。粉丝增长速度——在加速还是停滞？</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card-title">待处理业务事项</div>
+        <div class="review-card-desc">还没跟进的达人。还没结束的供应商对话。已计划但还没去的选品店拜访。所有承诺过但未兑现的事。</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card-title">下周 — 只设3个优先事项</div>
+        <div class="review-card-desc">不是一张10件事的清单。刚好3件。下周什么最能推动进展？周日结束前写下来。周一一开始，决定已经做好了。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: RULES -->
+  <section id="rules">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">全职独立运营原则</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rule-card warn">
+        <div class="rule-title">内容创作是你的工作，不是待办事项</div>
+        <div class="rule-desc">全职意味着每天最少3小时用于内容，不是挤出来的30分钟。如果你把内容当成"完成任务"，算法就把你当成偶尔更新的账号。</div>
+      </div>
+
+      <div class="rule-card warn">
+        <div class="rule-title">保护下午的时间块</div>
+        <div class="rule-desc">业务发展和品牌工作看起来没有内容创作那么紧迫，但它们同样重要。下午1点到5点，是 Kwosk 第二年能否存活的地方。像保护拍摄日一样保护它。</div>
+      </div>
+
+      <div class="rule-card warn">
+        <div class="rule-title">全职是一个压力放大器</div>
+        <div class="rule-desc">创作自由是真实的，心理压力也是真实的。没有外部问责，拖延会很快演变成品牌沉寂。周日复盘不是可选项——它是你的上司。</div>
+      </div>
+
+      <div class="rule-card warn">
+        <div class="rule-title">不要每天查看粉丝数</div>
+        <div class="rule-desc">虚荣指标。最多每月看一次。每天盯粉丝数是制造焦虑的机器，不产生任何收入。真正重要的指标是 Shopify 链接点击数。</div>
+      </div>
+
+      <div class="rule-card good">
+        <div class="rule-title">每周至少批量拍摄一次</div>
+        <div class="rule-desc">周六是拍摄日。一次拍3–4条原始素材。剪辑和发布在周一到周五分散进行。批量拍好，你就永远不会临时抓内容。</div>
+      </div>
+
+      <div class="rule-card good">
+        <div class="rule-title">实时记录一切</div>
+        <div class="rule-desc">你的案例作品集现在就在建立，不是18个月后才开始整理。供应商拜访的照片、第一笔订单的截图、被选品店拒绝后的一段话——这些都是故事。</div>
+      </div>
+
+      <div class="rule-card good">
+        <div class="rule-title">完成胜过完美</div>
+        <div class="rule-desc">一条略有瑕疵发出去的 Reel，胜过一条完美但卡在草稿箱里的。前期几个月，持续性比质量更重要。习惯建立后，质量自然会跟上。</div>
+      </div>
+
+      <div class="rule-card good">
+        <div class="rule-title">休息是系统的一部分</div>
+        <div class="rule-desc">周日下午2点后完全放松。午餐不碰屏幕。周六只上半天。独立运营靠的是创办人的能量。创办人耗尽，品牌也就耗尽了。</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div><strong>Kwosk</strong> — 每日运营系统</div>
+  <div>城市里活得清醒的男人穿的衣服</div>
+  <div>2026年6月版</div>
+</footer>
+
+</body>
+</html>
