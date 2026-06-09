@@ -1,0 +1,354 @@
+
+<h2 class="sr-only">Kwosk 3-Month Content Calendar — June to August 2026</h2>
+
+<style>
+:root {
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --hint: var(--color-text-tertiary);
+  --bg: var(--color-background-primary);
+  --bg2: var(--color-background-secondary);
+  --border: var(--color-border-tertiary);
+  --border2: var(--color-border-secondary);
+  --r: var(--border-radius-md);
+  --rl: var(--border-radius-lg);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); color: var(--ink); }
+
+.cal-wrap { padding: 1rem 0 2rem; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 1.5rem; }
+.leg { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot-wear { background: #1D9E75; }
+.dot-craft { background: #378ADD; }
+.dot-cur { background: #BA7517; }
+.dot-voice { background: #D4537E; }
+.dot-drop { background: #E24B4A; }
+.dot-inf { background: #7F77DD; }
+
+.month-block { margin-bottom: 2rem; }
+.month-label { font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 0.5px solid var(--border2); }
+
+.week-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; align-items: start; }
+.week-num { font-size: 11px; font-weight: 500; color: var(--hint); padding-top: 10px; }
+.day-cell { background: var(--bg2); border-radius: var(--r); padding: 8px 10px; min-height: 56px; border: 0.5px solid var(--border); }
+.day-cell.empty { background: transparent; border-color: transparent; min-height: 0; }
+.day-label { font-size: 10px; color: var(--hint); margin-bottom: 4px; }
+.post-tag { display: inline-block; font-size: 11px; font-weight: 500; border-radius: 4px; padding: 2px 7px; margin-bottom: 4px; }
+.tag-wear { background: #E1F5EE; color: #0F6E56; }
+.tag-craft { background: #E6F1FB; color: #185FA5; }
+.tag-cur { background: #FAEEDA; color: #854F0B; }
+.tag-voice { background: #FBEAF0; color: #993556; }
+.tag-drop { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+.tag-inf { background: #EEEDFE; color: #534AB7; }
+.post-title { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.peak-banner { background: #FCEBEB; border: 0.5px solid #F7C1C1; border-radius: var(--r); padding: 8px 12px; margin-bottom: 1rem; font-size: 12px; color: #A32D2D; display: flex; align-items: center; gap: 8px; }
+
+.col-headers { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+.col-h { font-size: 11px; color: var(--hint); text-align: center; }
+.col-h:first-child { text-align: left; }
+
+.note-row { display: grid; grid-template-columns: 80px 1fr; gap: 8px; margin-top: -2px; margin-bottom: 10px; }
+.week-note { background: #EEEDFE; border-radius: var(--r); padding: 5px 10px; font-size: 11px; color: #534AB7; grid-column: 2 / 5; }
+
+.focus-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 0.5px solid var(--border2); }
+.focus-item { background: var(--bg2); border-radius: var(--r); padding: 8px 12px; font-size: 12px; color: var(--muted); border: 0.5px solid var(--border); }
+.focus-item strong { display: block; font-size: 11px; font-weight: 500; color: var(--hint); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
+
+<div class="cal-wrap">
+
+<div class="legend">
+  <div class="leg"><div class="dot dot-wear"></div>The Wearing Man</div>
+  <div class="leg"><div class="dot dot-craft"></div>The Craft</div>
+  <div class="leg"><div class="dot dot-cur"></div>The Curation</div>
+  <div class="leg"><div class="dot dot-voice"></div>Brand Voice</div>
+  <div class="leg"><div class="dot dot-drop"></div>Design Drop</div>
+  <div class="leg"><div class="dot dot-inf"></div>Influencer</div>
+</div>
+
+<!-- JUNE -->
+<div class="month-block">
+  <div class="month-label">June 2026 — Launch Phase</div>
+
+  <div class="col-headers">
+    <div class="col-h">Week</div>
+    <div class="col-h">Tuesday 8PM</div>
+    <div class="col-h">Friday 8PM</div>
+    <div class="col-h">Sunday (Story)</div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W1<br>Jun 1–7</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jun 3</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Brand announcement — tattoo-inspired tees. "The drop is here."</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jun 6</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Design 1 reveal. On-body fit check. Office context.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jun 8</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Story: 300GSM weight close-up. "Feel the difference."</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">Priority: get Designs 1 & 2 live on Shopify. Send samples to all 5 influencers this week.</div></div>
+
+  <div class="week-row">
+    <div class="week-num">W2<br>Jun 8–14</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jun 10</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Office worker character. Tee at work. "No compromises."</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jun 13</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Design 2 reveal. Tattoo graphic close-up detail.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jun 15</div>
+      <div class="post-tag tag-cur">Curation</div>
+      <div class="post-title">Story: A coffee shop worth going to. Kwosk man energy.</div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W3<br>Jun 15–21</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jun 17</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Material focus. Fabric weight, stitching, print quality. No shortcuts.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jun 20</div>
+      <div class="post-tag tag-inf">Influencer</div>
+      <div class="post-title">Repost first influencer content (or story UGC). Social proof.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jun 22</div>
+      <div class="post-tag tag-voice">Brand Voice</div>
+      <div class="post-title">Story: Short opinion — why most graphic tees say nothing.</div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W4<br>Jun 22–28</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jun 24</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">3-way styling: casual, smart casual, layered. Same tee.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jun 27</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Tattoo design origin story. Why this graphic, what it means.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jun 29</div>
+      <div class="post-tag tag-drop">Design Drop</div>
+      <div class="post-title">Teaser story for Design 3. Drop in 5 days. Build tension.</div>
+    </div>
+  </div>
+</div>
+
+<!-- JULY -->
+<div class="month-block">
+  <div class="month-label">July 2026 — Build & Drop Phase</div>
+
+  <div class="col-headers">
+    <div class="col-h">Week</div>
+    <div class="col-h">Tuesday 8PM</div>
+    <div class="col-h">Friday 8PM</div>
+    <div class="col-h">Sunday (Story)</div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W5<br>Jun 29–Jul 5</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jul 1</div>
+      <div class="post-tag tag-drop">Design Drop</div>
+      <div class="post-title">Design 3 full reveal. On-body reel. Link in bio CTA.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jul 4</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Design 3 in real context. Weekend, evening, off-duty.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jul 6</div>
+      <div class="post-tag tag-inf">Influencer</div>
+      <div class="post-title">Story: tag influencer wearing Design 3. Authentic share.</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">Design 3 drops this week. Push influencer posts on or around Jul 1–4 for maximum momentum.</div></div>
+
+  <div class="week-row">
+    <div class="week-num">W6<br>Jul 6–12</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jul 8</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Customer feedback / first wear reactions. Real quotes, no editing.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jul 11</div>
+      <div class="post-tag tag-cur">Curation</div>
+      <div class="post-title">The Kwosk man's playlist / barber / read. Taste content.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jul 13</div>
+      <div class="post-tag tag-voice">Brand Voice</div>
+      <div class="post-title">Story: 穿得好，不需要人看出来 — short caption in Chinese.</div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W7<br>Jul 13–19</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jul 15</div>
+      <div class="post-tag tag-drop">Design Drop</div>
+      <div class="post-title">Design 4 full reveal. Final drop of the 4-design set.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jul 18</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">All 4 designs side-by-side. "Which one are you?" No vote CTA — just the visual.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jul 20</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Story: Behind the full 4-design collection. How it came together.</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">Design 4 drops this week. This is the last drop — make the Friday post feel like a complete collection moment, not just another product shot.</div></div>
+
+  <div class="week-row">
+    <div class="week-num">W8<br>Jul 20–26</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jul 22</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">Campaign closing highlight. Best moments from 8 weeks. Brand recap.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Jul 25</div>
+      <div class="post-tag tag-inf">Influencer</div>
+      <div class="post-title">Curated influencer round-up. Multiple faces wearing Kwosk.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Jul 27</div>
+      <div class="post-tag tag-voice">Brand Voice</div>
+      <div class="post-title">Story: honest reflection post. "8 weeks. What we built." Brand character.</div>
+    </div>
+  </div>
+</div>
+
+<!-- AUGUST -->
+<div class="month-block">
+  <div class="peak-banner">
+    <i class="ti ti-flame" aria-hidden="true" style="font-size:16px;"></i>
+    Peak window: August–September is Malaysian streetwear search season. Push harder here — this is the highest-leverage period of the 3 months.
+  </div>
+  <div class="month-label">August 2026 — Peak Season Push</div>
+
+  <div class="col-headers">
+    <div class="col-h">Week</div>
+    <div class="col-h">Tuesday 8PM</div>
+    <div class="col-h">Friday 8PM</div>
+    <div class="col-h">Sunday (Story)</div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W9<br>Jul 27–Aug 2</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Jul 29</div>
+      <div class="post-tag tag-cur">Curation</div>
+      <div class="post-title">Collab partner intro: specialty coffee / barber / concept store. Warm up the audience.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Aug 1</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">August energy reset. Fresh month, same tee. Real wear context.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Aug 3</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Story: stock levels transparency. "Limited run. What's left."</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">Start activating collab relationships now. A soft feature of a partner business costs nothing and builds community ties.</div></div>
+
+  <div class="week-row">
+    <div class="week-num">W10<br>Aug 3–9</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Aug 5</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">New face. Friend, barber, anyone real — not a model. Authentic wear.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Aug 8</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Wash test result. 300GSM after 10 washes. Real proof of quality.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Aug 10</div>
+      <div class="post-tag tag-inf">Influencer</div>
+      <div class="post-title">Story: re-engage influencers for August. Ask for a new post or story share.</div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-num">W11<br>Aug 10–16</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Aug 12</div>
+      <div class="post-tag tag-voice">Brand Voice</div>
+      <div class="post-title">"Why we don't do sales." Brand confidence post. Bilingual optional.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Aug 15</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">National Day adjacent. Quiet pride. Urban Malaysian man energy.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Aug 17</div>
+      <div class="post-tag tag-cur">Curation</div>
+      <div class="post-title">Story: local collab feature — coffee / barber / space. Community feel.</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">Aug 15 is Merdeka adjacent. A quiet, non-gimmicky post about what it means to dress with pride as an urban Malaysian lands better than a promotional flag post.</div></div>
+
+  <div class="week-row">
+    <div class="week-num">W12<br>Aug 17–23</div>
+    <div class="day-cell">
+      <div class="day-label">Tue Aug 19</div>
+      <div class="post-tag tag-wear">Wearing Man</div>
+      <div class="post-title">UGC or customer feature. Real buyer wearing the tee. Tag and repost.</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Fri Aug 22</div>
+      <div class="post-tag tag-craft">Craft</div>
+      <div class="post-title">Hint at what's next. Not a reveal — just tension. "Something is being made."</div>
+    </div>
+    <div class="day-cell">
+      <div class="day-label">Sun Aug 24</div>
+      <div class="post-tag tag-voice">Brand Voice</div>
+      <div class="post-title">Story: 3-month mark reflection. What worked, what didn't. Honest post.</div>
+    </div>
+  </div>
+  <div class="note-row"><div class="week-note">The Fri Aug 22 teaser is your bridge post — it signals continuity and prevents the brand from looking like it's running out of things to say after 4 designs.</div></div>
+</div>
+
+<div class="focus-bar">
+  <div class="focus-item"><strong>Total posts (3 months)</strong>24 Reels + 12 Stories</div>
+  <div class="focus-item"><strong>Wearing Man</strong>10 posts — highest volume</div>
+  <div class="focus-item"><strong>Design drops</strong>4 drops across Jun–Jul</div>
+  <div class="focus-item"><strong>Peak push</strong>All of August</div>
+  <div class="focus-item"><strong>Collab activation</strong>Start Aug W9</div>
+</div>
+
+</div>
