@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwosk — Pre-Launch Instagram Content Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #1A1A1A;
+    --red: #C41E2A;
+    --white: #F5F2EE;
+    --stone: #8C7B6B;
+    --dust: #D4CFC9;
+    --surface: #EEEAE5;
+    --muted: #6B6560;
+    --border: rgba(26,26,26,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--white);
+    padding: 3rem 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border: 1px solid rgba(245,242,238,0.08);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgba(245,242,238,0.06);
+    border-radius: 50%;
+  }
+  .kwosk-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: var(--dust);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .header-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(245,242,238,0.1);
+    flex-wrap: wrap;
+  }
+  .header-meta-item { }
+  .header-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .header-meta-val {
+    font-size: 13px;
+    color: var(--dust);
+  }
+
+  /* LEGEND */
+  .legend-bar {
+    background: var(--surface);
+    padding: 1rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-right: 0.25rem;
+  }
+  .legend-items { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .lbadge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .lb-static { background: #E6F1FB; color: #185FA5; }
+  .lb-reel   { background: #FCEBEB; color: #A32D2D; }
+  .lb-story  { background: #EAF3DE; color: #3B6D11; }
+  .obj-items { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-left: auto; }
+  .opill {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .op-aware   { background: #EEEDFE; color: #3C3489; }
+  .op-trust   { background: #E1F5EE; color: #085041; }
+  .op-convert { background: #FCEBEB; color: #A32D2D; }
+  .op-social  { background: #F1EFE8; color: #5F5E5A; }
+
+  /* BODY */
+  .body { padding: 0 3rem 3rem; max-width: 960px; }
+
+  /* PHASE */
+  .phase { margin-top: 3rem; }
+  .phase-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--dust);
+    line-height: 1;
+  }
+  .phase-info {}
+  .phase-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .phase-desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .phase-note {
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 10px 14px;
+    border-radius: 3px;
+    margin-bottom: 1.25rem;
+    line-height: 1.55;
+  }
+
+  /* WEEK GRID */
+  .week { margin-bottom: 1.5rem; }
+  .week-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--dust);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .posts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 640px) {
+    .posts-row { grid-template-columns: 1fr; }
+    .body { padding: 0 1.25rem 3rem; }
+    .header { padding: 2rem 1.25rem; }
+    .legend-bar { padding: 0.75rem 1.25rem; }
+  }
+
+  /* POST CARD */
+  .post-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .post-card-top {
+    padding: 0.75rem 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .post-day {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--stone);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--dust);
+    padding: 2px 7px;
+    border-radius: 2px;
+  }
+  .format-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .pillar-tag {
+    font-size: 10px;
+    color: var(--dust);
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .post-body { padding: 0.6rem 1rem 0.9rem; }
+  .post-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.25;
+  }
+  .post-caption {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 7px;
+  }
+  .post-notes {
+    font-size: 11.5px;
+    color: #9B918A;
+    line-height: 1.5;
+    padding-top: 6px;
+    border-top: 1px solid var(--surface);
+    margin-bottom: 7px;
+  }
+  .post-notes strong { color: var(--muted); font-weight: 500; }
+
+  /* LEFT ACCENT LINE per phase */
+  .phase-1 .post-card { border-left: 3px solid var(--stone); }
+  .phase-2 .post-card { border-left: 3px solid var(--red); }
+  .phase-3 .post-card { border-left: 3px solid var(--ink); }
+
+  /* STORIES SECTION */
+  .stories-section { margin-top: 3rem; }
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 0.75rem;
+  }
+  .story-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 3px solid #639922;
+    border-radius: 3px;
+    padding: 0.85rem 1rem;
+  }
+  .story-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  .story-card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* WARNING BOX */
+  .warning-box {
+    margin-top: 3rem;
+    border: 1px solid rgba(196,30,42,0.25);
+    border-left: 4px solid var(--red);
+    border-radius: 3px;
+    padding: 1.25rem 1.5rem;
+    background: rgba(196,30,42,0.03);
+  }
+  .warning-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+  .warning-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .warning-body li {
+    margin-left: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 4rem;
+    padding: 1.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .footer-note {
+    font-size: 11px;
+    color: var(--dust);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .phase { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="kwosk-mark">KWOSK — @kwosk_official</div>
+  <h1>Pre-Launch Instagram<br>Content Calendar</h1>
+  <div class="header-sub">6 weeks. 8 feed posts. Parallel stories. One objective: earn the right to sell before you ask anyone to buy.</div>
+  <div class="header-meta">
+    <div class="header-meta-item">
+      <div class="header-meta-label">Posting days</div>
+      <div class="header-meta-val">Tuesday + Friday · 8PM</div>
+    </div>
+    <div class="header-meta-item">
+      <div class="header-meta-label">Feed posts</div>
+      <div class="header-meta-val">8 total (4 Static, 4 Reels)</div>
+    </div>
+    <div class="header-meta-item">
+      <div class="header-meta-label">Phases</div>
+      <div class="header-meta-val">Ignite → Tension → Launch</div>
+    </div>
+    <div class="header-meta-item">
+      <div class="header-meta-label">Product</div>
+      <div class="header-meta-val">300GSM Graphic Tee · RM108</div>
+    </div>
+  </div>
+</div>
+
+<div class="legend-bar">
+  <span class="legend-title">Format</span>
+  <div class="legend-items">
+    <span class="lbadge lb-static">Static</span>
+    <span class="lbadge lb-reel">Reel</span>
+    <span class="lbadge lb-story">Story</span>
+  </div>
+  <div class="obj-items">
+    <span class="opill op-aware">Awareness</span>
+    <span class="opill op-trust">Trust</span>
+    <span class="opill op-convert">Convert</span>
+    <span class="opill op-social">Social proof</span>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- PHASE 1 -->
+  <div class="phase phase-1">
+    <div class="phase-header">
+      <div class="phase-num">01</div>
+      <div class="phase-info">
+        <div class="phase-name">Ignite — Who are you</div>
+        <div class="phase-desc">Weeks 1–2 · No product. Build presence. Make them curious before they see the shirt.</div>
+      </div>
+    </div>
+    <div class="phase-note">No product shown yet. This phase is entirely about brand character. If people don't feel the brand here, nothing in Phase 3 will work.</div>
+
+    <div class="week">
+      <div class="week-label">Week 01</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">Brand Voice</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Brand opening post — the mark</div>
+            <div class="post-caption">Close-up of the KWOSK logotype on a dark flat lay. No explanation. Let the arrows in the K do the talking. One image, full bleed, no text overlay.</div>
+            <div class="post-notes"><strong>Caption:</strong> 穿得好，不需要人看出来。<br><strong>Tags:</strong> 3–5 niche urban fashion tags only. No flood.<br><strong>Objective:</strong> <span class="opill op-aware" style="display:inline-block;font-size:10px;padding:1px 7px;background:#EEEDFE;color:#3C3489;">Awareness</span></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">Brand Voice</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">The man, not the brand — founder intro</div>
+            <div class="post-caption">30 sec. Not a face reveal. Hands working. Designing. A shirt folded. Text overlay: "I don't make clothes for everyone." No talking to camera. No pitch.</div>
+            <div class="post-notes"><strong>Mood:</strong> Slow, minimal music. Low key lighting.<br><strong>No sell. Pure atmosphere.</strong><br><strong>Objective:</strong> <span class="opill op-aware" style="display:inline-block;font-size:10px;padding:1px 7px;background:#EEEDFE;color:#3C3489;">Awareness</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="week-label">Week 02</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">The Craft</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Design process — the sketch</div>
+            <div class="post-caption">Flat lay of sketchbook, reference imagery, or raw design file screenshot. Black and white mood. Show that thought went into this.</div>
+            <div class="post-notes"><strong>Caption:</strong> Something is being made. No reveal date. Build tension.<br><strong>Objective:</strong> <span class="opill op-trust" style="display:inline-block;font-size:10px;padding:1px 7px;background:#E1F5EE;color:#085041;">Trust</span></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">The Craft</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">300GSM — weight of intention</div>
+            <div class="post-caption">30 sec. Close up: fabric held, dropped, pressed. Voiceover or text: "Most tees are forgotten. This one stays." No price. No buy link.</div>
+            <div class="post-notes"><strong>Cinematic grade. No product reveal yet.</strong><br><strong>Objective:</strong> <span class="opill op-trust" style="display:inline-block;font-size:10px;padding:1px 7px;background:#E1F5EE;color:#085041;">Trust</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase phase-2">
+    <div class="phase-header">
+      <div class="phase-num">02</div>
+      <div class="phase-info">
+        <div class="phase-name">Tension — Something is coming</div>
+        <div class="phase-desc">Weeks 3–4 · Product teasers. No pricing. Build desire before access. Influencer seeding begins.</div>
+      </div>
+    </div>
+    <div class="phase-note">Desire is built here, not in Phase 3. If Phase 2 is weak, launch day underwhelms. Seed influencer shirts Week 3 so their content lands inside your Phase 3 window.</div>
+
+    <div class="week">
+      <div class="week-label">Week 03</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">The Wearing Man</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Design teaser — partial graphic reveal</div>
+            <div class="post-caption">Cropped shot of a graphic — 40% of design visible maximum. Dark background. High contrast. Do not show the full design. Make them want to see more.</div>
+            <div class="post-notes"><strong>Caption:</strong> 一件衬衫，一个选择。Not yet.<br><strong>Objective:</strong> <span class="opill op-aware" style="display:inline-block;font-size:10px;padding:1px 7px;background:#EEEDFE;color:#3C3489;">Awareness</span></div>
+          </div>
+        </div>
+
+        <div class="post-card" style="border-left-color:#C41E2A; border-left-width:4px;">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">Brand Voice</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Brand film — Concept A or B ★</div>
+            <div class="post-caption">"Employee of the Month" or "Signal Lost." Your cinematic centrepiece. 45–60 sec cut for IG. This is your highest-effort, highest-reward post. Do not skip or delay it.</div>
+            <div class="post-notes"><strong>Caption:</strong> Minimal. Let the film do the work.<br><strong>★ This post cannot be replaced by anything else. If shoot isn't ready, delay the whole calendar — don't post something weaker in its place.</strong><br><strong>Objective:</strong> <span class="opill op-aware" style="display:inline-block;font-size:10px;padding:1px 7px;background:#EEEDFE;color:#3C3489;">Awareness</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="week-label">Week 04</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">The Curation</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">The Curation — identity flat lay</div>
+            <div class="post-caption">A mood flat lay: book, coffee, keys, headphones — not the shirt. Identity of the man who wears Kwosk, without showing Kwosk. Let the audience self-identify.</div>
+            <div class="post-notes"><strong>Caption:</strong> Chinese. One line about knowing who you are before others do.<br><strong>Objective:</strong> <span class="opill op-aware" style="display:inline-block;font-size:10px;padding:1px 7px;background:#EEEDFE;color:#3C3489;">Awareness</span></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">The Craft</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Full graphic reveal — first look</div>
+            <div class="post-caption">First full look at the graphic. Cinematic slow reveal. Pan from fabric texture to full print. No price yet. This is the moment they've been waiting for since Week 3.</div>
+            <div class="post-notes"><strong>Caption:</strong> 设计，不是装饰。它是态度。<br><strong>Story:</strong> Add link to product page or waitlist same day.<br><strong>Objective:</strong> <span class="opill op-trust" style="display:inline-block;font-size:10px;padding:1px 7px;background:#E1F5EE;color:#085041;">Trust</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase phase-3">
+    <div class="phase-header">
+      <div class="phase-num">03</div>
+      <div class="phase-info">
+        <div class="phase-name">Launch — It's here. Choose.</div>
+        <div class="phase-desc">Weeks 5–6 · Product is live. Conversion is the job. Every post links to purchase.</div>
+      </div>
+    </div>
+    <div class="phase-note">Influencer content should be landing in this window. If it's not, you seeded too late. Every post now carries a quiet but direct CTA. Quiet does not mean weak.</div>
+
+    <div class="week">
+      <div class="week-label">Week 05 — Launch week</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">The Wearing Man</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Launch static — editorial product shot</div>
+            <div class="post-caption">Worn, not flat lay. Man in context — urban, still, intentional. Not a lookbook smile. The shirt is present but the man is the subject. This is your first hard-sell post.</div>
+            <div class="post-notes"><strong>Caption:</strong> RM108. 300GSM. 限量。Link in bio.<br><strong>Make it quiet but direct. No exclamation marks.</strong><br><strong>Objective:</strong> <span class="opill op-convert" style="display:inline-block;font-size:10px;padding:1px 7px;background:#FCEBEB;color:#A32D2D;">Convert</span></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">The Wearing Man</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">First wear — sensory reel</div>
+            <div class="post-caption">The shirt removed from packaging. Unfolded. Put on. Feels like a ritual, not an unboxing. 20–30 sec. No voiceover. Let sound design work. Every movement is intentional.</div>
+            <div class="post-notes"><strong>Caption:</strong> 只剩 X 件。— creates urgency without promotional red.<br><strong>Story:</strong> Direct product link added same day.<br><strong>Objective:</strong> <span class="opill op-convert" style="display:inline-block;font-size:10px;padding:1px 7px;background:#FCEBEB;color:#A32D2D;">Convert</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="week-label">Week 06</div>
+      <div class="posts-row">
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Tuesday</span>
+            <span class="format-badge lb-static">Static</span>
+            <span class="pillar-tag">Social proof</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Social proof — influencer or first buyer</div>
+            <div class="post-caption">Repost influencer content or a buyer's photo. Keep it raw. Do not over-polish. If no influencer content yet — packed orders, garment tag close-up, or receipts. Don't fake it.</div>
+            <div class="post-notes"><strong>Caption:</strong> One line maximum. Let the proof speak.<br><strong>Objective:</strong> <span class="opill op-social" style="display:inline-block;font-size:10px;padding:1px 7px;background:#F1EFE8;color:#5F5E5A;">Social proof</span></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-card-top">
+            <span class="post-day">Friday</span>
+            <span class="format-badge lb-reel">Reel</span>
+            <span class="pillar-tag">The Craft</span>
+          </div>
+          <div class="post-body">
+            <div class="post-title">Design meaning — behind the graphic</div>
+            <div class="post-caption">30 sec. Explain — without explaining — what the tattoo-inspired design represents. Visual montage + text overlays. No over-explaining. This converts the last fence-sitters who need one final nudge of meaning.</div>
+            <div class="post-notes"><strong>End with:</strong> Link in bio. Nothing else.<br><strong>Objective:</strong> <span class="opill op-convert" style="display:inline-block;font-size:10px;padding:1px 7px;background:#FCEBEB;color:#A32D2D;">Convert</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- STORIES -->
+  <div class="stories-section">
+    <div class="phase-header" style="margin-top:3rem;">
+      <div class="phase-num" style="color:var(--dust);">+</div>
+      <div class="phase-info">
+        <div class="phase-name">Stories — parallel track</div>
+        <div class="phase-desc">Not counted in the 2/week cadence. Runs alongside the feed. Keeps the account alive on non-post days.</div>
+      </div>
+    </div>
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-card-title">Countdown sticker</div>
+        <div class="story-card-desc">Week 4 onward. Black background. Just the date. No copy. Repost to your story every single day until launch.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-card-title">Behind-the-shoot BTS</div>
+        <div class="story-card-desc">Same day as any shoot. Raw clips, 5–15 sec each. Costs almost nothing. Keeps account visible between feed posts.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-card-title">Launch day — direct link</div>
+        <div class="story-card-desc">On launch day: stories with direct Shopify link. One per design. Black background, product image, price, link. Minimal.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-card-title">Repost influencer stories</div>
+        <div class="story-card-desc">When influencers post, repost immediately. First 24 hours is your window. Do not delay. Every hour matters.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARNING -->
+  <div class="warning-box">
+    <div class="warning-title">What will kill this plan</div>
+    <div class="warning-body">
+      <ul>
+        <li>Skipping the brand film. It's the only post doing heavy awareness work you cannot replicate with statics. If it's not ready, delay the calendar. Don't substitute.</li>
+        <li>Showing the price before you've built desire. Phase 1 and 2 have zero price mentions. That's intentional.</li>
+        <li>Missing a Tuesday or Friday and telling yourself you'll post double next week. You won't. One missed post breaks the pattern your audience is forming.</li>
+        <li>Seeding influencers too late. If shirts go out in Week 5, their content arrives after your launch spike. Worthless. Seed in Week 3.</li>
+        <li>Using red for any promotional messaging. Red is the colour of choosing on your own terms — not a sale colour. One wrong use and the brand language breaks.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">KWOSK</div>
+  <div class="footer-note">@kwosk_official · 300GSM · RM108 · 穿得好，不需要人看出来。</div>
+</div>
+
+</body>
+</html>
